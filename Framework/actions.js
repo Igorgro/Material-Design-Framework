@@ -6,11 +6,6 @@
 
 function init(){
     setTheme ("Teal");
-    var height = document.getElementById ('height');
-    height.onmousedown = function(){
-        this.onmousemove = function () {changeHeight (this);};
-        this.onmouseup = function () {this.onmousemove = function () {};};
-    };
     
     //Intialising textfields
     var textFields = document.getElementsByClassName('mtextfield');
@@ -26,9 +21,6 @@ function init(){
         if (inputs[i].type == 'range') sliders.push(inputs[i]);
     }
     
-    
-    
-    createContextMenu (document.getElementById("pressButton"), ["Remove"], [Remove]);
     
     //Initialising context menu
     document.body.oncontextmenu = function (){
@@ -50,32 +42,34 @@ function init(){
 
 
 function createContextMenu (element, items, functions){
-    
-    
     element.oncontextmenu = function (){
-        if (document.getElementById('contextMenu') !== null) this.removeChild (document.getElementById('contextMenu'));
+        //if (document.getElementById('contextMenu') !== null) this.removeChild (document.getElementById('contextMenu'));
+        if (document.getElementsByClassName('contextmenu')[0] !== undefined){
+            document.body.removeChild(document.getElementsByClassName('contextmenu')[0]);
+        }
         
         var contextMenu = document.createElement ('div');
         contextMenu.className = 'menu contextmenu';
+        contextMenu.Caller = element;
+        contextMenu.id = "contextMenu_"+element.id;
+        
         for (var i = 0; i < items.length; i++){
-        var contextMenuItem = document.createElement ('div');
+            
+            var contextMenuItem = document.createElement ('div');
             contextMenuItem.className = 'menu-item';
             contextMenuItem.innerHTML = items[i];
             contextMenuItem.function = functions[i]; 
-            contextMenu.Caller = element;
+            
             
             contextMenuItem.onclick = function () {
                 this.function(this.parentElement.Caller);
             };
         
-            contextMenu.appendChild (contextMenuItem);
-            
+            contextMenu.appendChild (contextMenuItem);  
         }   
-        
         
         contextMenu.style.left = parseInt(event.clientX-7)+'px';
         contextMenu.style.top = parseInt(event.clientY+2)+'px';
-        contextMenu.id = "contextMenu_"+element.id;
         document.body.appendChild (contextMenu);
         
         return false;
@@ -83,19 +77,7 @@ function createContextMenu (element, items, functions){
     
 }
 
-function Remove (element){
-    element.parentNode.removeChild (element);
-}
 
-function changeHeight(regul) {
-    var card = document.getElementById ('card');
-    //var cardStyle = getComputedStyle(card);
-    //
-    //alert (regul.value);
-    var str = (regul.value-1)/2+'px '+regul.value+'px '+(regul.value/2+2)+'px rgb(160, 160, 160)';
-    //alert (str);
-    card.style.boxShadow = str;
-}
 
 
 function setTheme (name){

@@ -39,6 +39,11 @@ body{
 .button:active{
     box-shadow: rgb(160, 160, 160) 2px 5px 4.5px;
 }
+.button>p{
+    height: 2px;
+    margin: 0px;
+    position: inherit;
+}
 
 .flatbutton{
     position: relative;
@@ -74,6 +79,11 @@ body{
 }
 .flatbutton:disabled>p{
     color: #B0B0B0;
+}
+.flatbutton>p{
+    height: 2px;
+    margin: 0px;
+    position: inherit;
 }
 
 
