@@ -17,6 +17,74 @@ function init(){
     for (var i = 0; i< textFields.length; i++){
         textFields[i].setAttribute("contenteditable", "true");
     }
+    
+    
+    //Getting sliders
+    var inputs = document.getElementsByTagName('input');
+    var sliders = [];
+    for (var i = 0; i < inputs.length; i++){
+        if (inputs[i].type == 'range') sliders.push(inputs[i]);
+    }
+    
+    
+    
+    createContextMenu (document.getElementById("pressButton"), ["Remove"], [Remove]);
+    
+    //Initialising context menu
+    document.body.oncontextmenu = function (){
+        return false;
+    };    
+    document.body.onclick = function () {
+        var contextmenus = document.getElementsByClassName('contextmenu');
+        for (var i = 0; i < contextmenus.length; i++){
+            this.removeChild (contextmenus[i]);
+        }
+        //if (document.getElementById('contextMenu') !== null) this.removeChild (document.getElementById('contextMenu'));
+    };
+    
+    
+    //Allow user make document initialisation
+    if (window["main"] !== undefined) window["main"]();
+}
+
+
+
+function createContextMenu (element, items, functions){
+    
+    
+    element.oncontextmenu = function (){
+        if (document.getElementById('contextMenu') !== null) this.removeChild (document.getElementById('contextMenu'));
+        
+        var contextMenu = document.createElement ('div');
+        contextMenu.className = 'menu contextmenu';
+        for (var i = 0; i < items.length; i++){
+        var contextMenuItem = document.createElement ('div');
+            contextMenuItem.className = 'menu-item';
+            contextMenuItem.innerHTML = items[i];
+            contextMenuItem.function = functions[i]; 
+            contextMenu.Caller = element;
+            
+            contextMenuItem.onclick = function () {
+                this.function(this.parentElement.Caller);
+            };
+        
+            contextMenu.appendChild (contextMenuItem);
+            
+        }   
+        
+        
+        contextMenu.style.left = parseInt(event.clientX-7)+'px';
+        contextMenu.style.top = parseInt(event.clientY+2)+'px';
+        contextMenu.id = "contextMenu_"+element.id;
+        document.body.appendChild (contextMenu);
+        
+        return false;
+    };
+    
+}
+
+function Remove (element){
+    element.parentNode.removeChild (element);
 }
 
 function changeHeight(regul) {
@@ -61,7 +129,7 @@ function setTheme (name){
     }
 }
 
-
+//This function is just an animation test, dont use it in real projects
 function hideFAB (elem){
     //alert(elem.id);
     var elemStyle = elem.style;
