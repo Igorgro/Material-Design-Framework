@@ -5,20 +5,15 @@ and open the template in the editor.
 */
 /* 
     Created on : 18.10.2016, 18:30:55
-    Author     : Tetya
+    Author     : Igorgro
 */
-div{
 
-}
-body{
-    
-}
 
 
 .mcard{
     overflow: hidden;
     border-radius: 2px;
-    /*box-shadow:0px 1px 3px rgb(160, 160, 160);*/
+    box-shadow:0px 1px 3px rgb(160, 160, 160);
     background-color: white;
 }
 
@@ -33,10 +28,11 @@ body{
     box-shadow:0px 1px 3px rgb(160, 160, 160);
     border-radius: 2px;
     overflow: hidden;
-    transition: box-shadow 0.3s ease-in-out 0s;
+    transition: box-shadow 0.2s ease-in-out 0s, background-color 0.2s ease-in-out 0s;
 }
 
 .button:active{
+    background-color: var(--active-color);
     box-shadow: rgb(160, 160, 160) 2px 5px 4.5px;
 }
 .button>p{
@@ -166,9 +162,9 @@ body{
 }
 
 .checkbox:checked+label:before{
-    border-color: var(--primary-color);
+    border-color: var(--accent-color);
     border-width: 2px;
-    background-color: var(--primary-color);
+    background-color: var(--accent-color);
     background-image: url(ic_check_white_24dp.png);
     background-size: 16px 16px;
     background-clip: border-box;
@@ -211,11 +207,11 @@ body{
 }
 .checkbox:checked+label:hover:after,.radio:checked+label:hover:after{
     visibility: visible;
-    background-color: var(--primary-color);
+    background-color: var(--accent-color);
 }
 
 .checkbox:checked+label:after,.radio:checked+label:after{
-    background-color: var(--primary-color);
+    background-color: var(--accent-color);
 }
 
 .checkbox:disabled+label:hover:after,.radio:disabled+label:hover:after{
@@ -263,8 +259,8 @@ body{
 }
 
 .radio:checked+label:before{
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
 }
 
 .radio:disabled+label:before{
@@ -283,23 +279,46 @@ body{
 .FloatingActionButton{
     position: fixed;
     display: inline-block;
-    bottom: 30px;
-    right: 30px;
     width: 26px;
     height: 26px;
-    border-radius: 100px;
-    background-color: var(--primary-color);
+    border-radius: 36px;
+    background-color: var(--accent-color);
     box-shadow:rgb(160, 160, 160) 1px 3px 3.5px;
     overflow: hidden;
-    transition: box-shadow 0.3s ease-in-out 0s, transform 0.5s ease-in-out 0s, visibility 0s ease-in-out 0.5s;
+    transition: box-shadow 0.3s ease-in-out 0s, transform 0.5s ease-in-out 0s, visibility 0s ease-in-out 0.5s, bottom 0.5s linear 0s, right 0.5s linear 0s, background-color 0.2s linear 0s;
     padding: 20px;
+    z-index: 1002;
 }
 .FloatingActionButton:hover{
     z-index: 2;
 }
 
 .FloatingActionButton:active{
-    box-shadow: rgb(160, 160, 160) 2px 5px 4.5px;
+    background-color: var(--accent-active-color);
+    box-shadow: rgb(130, 130, 130) 3px 5px 5px;
+}
+
+.ripple-effect.FloatingActionButton:after{
+	border-radius:100%;
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    visibility: hidden;
+    background-color: var(--accent-ripple-color);
+    z-index: 0;
+    top:calc(50% - 5px);
+    left:calc(50% - 5px);
+    opacity: 1;
+
+}
+
+.ripple-effect.FloatingActionButton:hover:after{
+    border-radius:100%;
+    animation: ripple;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: backwards;
 }
 
 
@@ -316,7 +335,7 @@ input[type=range] {
   
 }
 
-input[type="range"]::-webkit-slider-thumb{
+input[type=range]::-webkit-slider-thumb{
     -webkit-appearance: none;
     width: 14px;
     height: 14px;
@@ -328,13 +347,21 @@ input[type="range"]::-webkit-slider-thumb{
     
 }
 
+input[type=range]::-webkit-slider-thumb:active{
+    background-color: var(--active-color);
+}
+
 input[type=range]::-webkit-slider-runnable-track {
     height:0px;
     border-bottom: solid 3px #8F8F8F;
 }
 
-input[type=range]::-webkit-slider-runnable-track::before{
+input[type=range]::-webkit-slider-thumb::before{
     content: 'lol';
+    width: 100px;
+    height:100px;
+    color: black;
+    position: relative;
 }
 
 
@@ -360,7 +387,7 @@ input[type=range]::-webkit-slider-runnable-track::before{
 .mtextfield:focus{
     border:none;
     border-bottom: solid 2px;
-    border-bottom-color: var(--primary-color);
+    border-bottom-color: var(--accent-color);
 }
 
 .mtextfield::before{
@@ -377,7 +404,7 @@ input[type=range]::-webkit-slider-runnable-track::before{
 .mtextfield:focus::before{
     top:-16px;
     font-size:8pt;
-    color: var(--primary-color);
+    color: var(--accent-color);
     cursor: default;
 }  
 
@@ -390,7 +417,7 @@ input[type=range]::-webkit-slider-runnable-track::before{
 .mtextfield:empty:focus::before{
     top:-16px;
     font-size:8pt;
-    color: var(--primary-color);
+    color: var(--accent-color);
     cursor: default;
 }
 
@@ -402,15 +429,22 @@ input[type=range]::-webkit-slider-runnable-track::before{
     position:fixed;
     width:calc(100% + 2px);
     box-shadow: 0 2px 5px rgba(0,0,0,.26);
-    height: 66px;
-    max-height: 66px;
-    top:-2px;
+    height: 64px;
+    max-height: 70px;
+    top:0px;
     left:-2px;
-    padding-left:16px;
     overflow: hidden;
+}
+.toolbar>h3{
+    position: relative;
+    top:0px;
+    margin: 0px;
+    top:20px;
+    left:22px;
 }
 
 
+/* Menu */
 .menu{
     position: absolute;
     box-shadow:0px 1px 3px rgb(160, 160, 160);
@@ -471,6 +505,16 @@ input[type=range]::-webkit-slider-runnable-track::before{
 
 
 
+/* Backdrop */
+.backdrop{
+    position: absolute;
+    top:0px;
+    left:0px;
+    width:100%;
+    height: 100%;
+    z-index: 1001;
+    transition: background-color 0.5s, linear, 0s;
+}
 
 
 
@@ -483,6 +527,15 @@ input[type=range]::-webkit-slider-runnable-track::before{
 }
 i{
     color: white;
+    cursor: default;
+    position: inherit;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+     -khtml-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+         -o-user-select: none;
+            user-select: none;
 }
 
 
@@ -513,6 +566,8 @@ h1,h2,h3,h4,h5,h6{
          -o-user-select: none;
             user-select: none;
 }
+
+
 
 @font-face{
     font-family: Roboto-Light;
