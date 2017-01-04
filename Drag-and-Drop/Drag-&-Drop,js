@@ -1,0 +1,32 @@
+var moveElem;
+var dx = 0;
+var dy = 0;
+
+function dragging (){
+    moveElem.style.left = event.clientX - dx;
+	moveElem.style.top = event.clientY - dy;
+}
+
+
+function init(){
+    //Initialising daggable objects
+	var Draggables = document.getElementsByClassName('draggable');
+	for (var i = 0; i < Draggables.length; i++){
+		initDraggable (Draggables [i], false);
+		
+	}
+}
+
+
+function initDraggable(elem) {
+    elem.onmousedown = function (){
+		//alert('any');
+		moveElem = this;
+		//alert (parseInt (this.style.left));	
+		dx = event.clientX - parseInt (this.style.left);
+		dy = event.clientY - parseInt (this.style.top);
+		document.body.onmousemove = function () {dragging ();};
+		document.body.onmouseup = function () {document.body.onmousemove = function (){}; dx = 0; dy = 0;};
+	};
+		
+}
