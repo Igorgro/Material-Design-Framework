@@ -10,12 +10,29 @@ and open the template in the editor.
 
 
 
+
 .mcard{
     overflow: hidden;
     border-radius: 2px;
     box-shadow:0px 1px 3px rgb(160, 160, 160);
     background-color: white;
+    display: inline-block;
+    transition: box-shadow 0.2s ease-in-out 0s;
 }
+.mcard>p{
+    margin-left: 16px;
+    margin-right: 16px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    font-size: 11pt;
+}
+.mcard>h3,.mcard>h2{
+    margin-bottom:0px;
+    margin-top: 22px;
+    margin-left:16px;
+    margin-right: 16px; 
+}
+
 
 .button{
     position: relative;
@@ -29,6 +46,8 @@ and open the template in the editor.
     border-radius: 2px;
     overflow: hidden;
     transition: box-shadow 0.2s ease-in-out 0s, background-color 0.2s ease-in-out 0s;
+    
+
 }
 
 .button:active{
@@ -39,9 +58,11 @@ and open the template in the editor.
     height: 2px;
     margin: 0px;
     position: inherit;
+    color: white;
 }
 
 .flatbutton{
+    margin: 0px;
     position: relative;
     display: inline-block;
     padding-top: 10px;
@@ -53,17 +74,6 @@ and open the template in the editor.
     transition: box-shadow 0.3s ease-in-out 0s;
 }
 
-.flatbutton{
-    position: relative;
-    display: inline-block;
-    padding-top: 10px;
-    padding-bottom: 26px;
-    padding-left: 14px;
-    padding-right: 14px;
-    border-radius: 2px;
-    overflow: hidden;
-    transition: box-shadow 0.3s ease-in-out 0s;
-}
 .flatbutton>p{
     color:var(--primary-color);
 }
@@ -82,10 +92,22 @@ and open the template in the editor.
     position: inherit;
 }
 
+.buttons-container {
+    position: relative;
+    padding: 8px;
+    border-top: solid 0.5px #D2D2D2;
+    
+}
+.buttons-container>.flatbutton{
+    float: right;
+    margin-bottom: 8px;
+}
+
+
 
 .ripple-effect:after{
-	border-radius:100%;
-    content: '';
+    border-radius: 100%;
+    content: ' ';
     position: absolute;
     width: 10px;
     height: 10px;
@@ -95,13 +117,13 @@ and open the template in the editor.
     top:calc(50% - 5px);
     left:calc(50% - 5px);
     opacity: 1;
-
+    overflow: hidden;
 }
 
 .ripple-effect:hover:after{
-    border-radius:100%;
+    border-radius: 100%;
     animation: ripple;
-    animation-duration: 1s;
+    animation-duration: 10s;
     animation-timing-function: ease-in-out;
     animation-fill-mode: backwards;
 }
@@ -115,10 +137,10 @@ and open the template in the editor.
         border-radius:100%;
         transform: scale(0.1);
     }
-    
+
     100%{
         visibility: hidden;
-        opacity: 0;
+        opacity: 1;
         border-radius: 100%;
         transform: scale(20);
     }
@@ -229,7 +251,7 @@ and open the template in the editor.
         border-radius:100%;
         transform: scale(0.1);
     }
-    
+
     100%{
         border-radius: 100%;
         transform: scale(4);
@@ -299,7 +321,7 @@ and open the template in the editor.
 }
 
 .ripple-effect.FloatingActionButton:after{
-	border-radius:100%;
+    border-radius:100%;
     content: '';
     position: absolute;
     width: 10px;
@@ -328,11 +350,11 @@ and open the template in the editor.
 
 /* Slider input */
 input[type=range] {
-  -webkit-appearance: none; /* Hides the slider so that custom slider can be made */
-   /* Specific width is required for Firefox. */
-  background: transparent;
-  outline: none;
-  
+    -webkit-appearance: none; /* Hides the slider so that custom slider can be made */
+    /* Specific width is required for Firefox. */
+    background: transparent;
+    outline: none;
+
 }
 
 input[type=range]::-webkit-slider-thumb{
@@ -344,7 +366,7 @@ input[type=range]::-webkit-slider-thumb{
     background-color: var(--primary-color);
     border-radius: 20px;
     box-shadow: 0px 1px 3px rgb(160, 160, 160); 
-    
+
 }
 
 input[type=range]::-webkit-slider-thumb:active{
@@ -374,14 +396,14 @@ input[type=range]::-webkit-slider-thumb::before{
     width: 100%;
     position: relative;
     padding-bottom: 8px;   
-    
+
     transition: border-bottom-color 0.2s ease-in-out 0s;
     border-bottom: solid 1px;
     border-bottom-color: #C8C8C8;
     outline: none;
     font-family: Roboto;
     z-index: 3;
-    
+
 }
 
 .mtextfield:focus{
@@ -434,6 +456,7 @@ input[type=range]::-webkit-slider-thumb::before{
     top:0px;
     left:-2px;
     overflow: hidden;
+    z-index:999;
 }
 .toolbar>h3{
     position: relative;
@@ -441,6 +464,7 @@ input[type=range]::-webkit-slider-thumb::before{
     margin: 0px;
     top:20px;
     left:22px;
+    color:white;
 }
 
 
@@ -451,7 +475,7 @@ input[type=range]::-webkit-slider-thumb::before{
     background-color: #FCFCFC;
     border-radius: 2px; 
     display: inline-block;
-    
+
     transform-origin: top left;
     animation-name: corner-increasing;
     animation-delay: 0s;
@@ -469,11 +493,11 @@ input[type=range]::-webkit-slider-thumb::before{
     font-family: Roboto;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
-     -khtml-user-select: none;
-       -moz-user-select: none;
-        -ms-user-select: none;
-         -o-user-select: none;
-            user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
     cursor: default;
 }
 
@@ -482,8 +506,8 @@ input[type=range]::-webkit-slider-thumb::before{
 }
 
 /* Horizontal line for menu */
-.hor-line{
-    height: 0p;
+.divider{
+    height: 0px;
     border-top: solid 0.5px #D2D2D2;
     border-bottom: none;
     border-left: none;
@@ -496,13 +520,12 @@ input[type=range]::-webkit-slider-thumb::before{
     0%{
         transform: scale(0.1);
     }
-    
-    100%{
-       transform: scale(1);
-    }
-    
-}
 
+    100%{
+        transform: scale(1);
+    }
+
+}
 
 
 /* Backdrop */
@@ -517,7 +540,24 @@ input[type=range]::-webkit-slider-thumb::before{
 }
 
 
-
+/* Snackbar */
+.snackbar{
+    background-color: #333333;
+    padding-right: 24px;
+    height: 48px;
+    border-radius: 2px;
+    position: fixed;
+    display: inline-block;
+    transition: bottom 0.2s ease-in-out 0s;
+}
+.snackbar>p{
+    margin: 0px;
+    margin-top: 14px;
+    margin-left: 24px;
+    margin-right: 48px;
+    font-size: 11pt;
+    color: white;
+}
 
 
 
@@ -531,43 +571,50 @@ i{
     position: inherit;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
-     -khtml-user-select: none;
-       -moz-user-select: none;
-        -ms-user-select: none;
-         -o-user-select: none;
-            user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
 }
 
 
 p,label{
     cursor: default;
     z-index: 1;
-    color: white;
     font-family: Roboto;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
-     -khtml-user-select: none;
-       -moz-user-select: none;
-        -ms-user-select: none;
-         -o-user-select: none;
-            user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
 }
 
 h1,h2,h3,h4,h5,h6{
     cursor: default;
     z-index: 1;
-    color: white;
     font-family: Roboto-Light;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
-     -khtml-user-select: none;
-       -moz-user-select: none;
-        -ms-user-select: none;
-         -o-user-select: none;
-            user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
 }
 
-
+br{
+    cursor: default;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
 
 @font-face{
     font-family: Roboto-Light;
@@ -586,7 +633,7 @@ h1,h2,h3,h4,h5,h6{
 }
 
 ::-webkit-scrollbar-track {
-    
+
 }
 
 ::-webkit-scrollbar-thumb{
@@ -594,8 +641,6 @@ h1,h2,h3,h4,h5,h6{
     background-color: var(--primary-color);
     border-color: black;
 }
-
-
 
 
 
