@@ -375,23 +375,6 @@ window.onload = init;
 
 
 
-function main(){
-    createContextMenu(document.body, ["Red", "Blue", "Orange"], [Red, Blue, Orange]);
-    setTheme("Orange");
-}
-
-function Red(e){
-    setTheme("Red");
-}
-
-function Blue(){
-    setTheme("Blue");
-}
-
-function Orange(){
-    setTheme("Orange");
-}
-
 
 
 
