@@ -24,13 +24,17 @@ and open the template in the editor.
     margin-right: 16px;
     margin-top: 12px;
     margin-bottom: 12px;
-    font-size: 11pt;
+    font-size: 10pt;
 }
 .mcard>h3,.mcard>h2{
     margin-bottom:0px;
     margin-top: 22px;
     margin-left:16px;
     margin-right: 16px; 
+}
+.mcard>img{
+    position: relative;
+    width: 100%;
 }
 
 
@@ -46,14 +50,16 @@ and open the template in the editor.
     border-radius: 2px;
     overflow: hidden;
     transition: box-shadow 0.2s ease-in-out 0s, background-color 0.2s ease-in-out 0s;
-    
+}
 
+.button:hover{
+    background-color: var(--hover-color);
 }
 
 .button:active{
-    background-color: var(--active-color);
     box-shadow: rgb(160, 160, 160) 2px 5px 4.5px;
 }
+
 .button>p{
     height: 2px;
     margin: 0px;
@@ -80,7 +86,7 @@ and open the template in the editor.
 .flatbutton:hover{
     background-color: #DDDDDD;
 }
-.flatbutton:active{
+.flatbutton>.ripple{
     background-color: #CCCCCC;
 }
 .flatbutton:disabled>p{
@@ -105,7 +111,7 @@ and open the template in the editor.
 
 
 
-.ripple-effect:after{
+.ripple{
     border-radius: 100%;
     content: ' ';
     position: absolute;
@@ -114,23 +120,21 @@ and open the template in the editor.
     visibility: hidden;
     background-color: var(--ripple-color);
     z-index: 0;
-    top:calc(50% - 5px);
-    left:calc(50% - 5px);
     opacity: 1;
     overflow: hidden;
 }
 
-.ripple-effect:hover:after{
+.ripple.ripple-active{
     border-radius: 100%;
-    animation: ripple;
-    animation-duration: 10s;
+    animation: rippleAnim;
+    animation-duration: 0.5s;
     animation-timing-function: ease-in-out;
     animation-fill-mode: backwards;
 }
 
 
 
-@-webkit-keyframes ripple{
+@-webkit-keyframes rippleAnim{
     0%{
         visibility: visible;
         opacity: 1;
@@ -140,7 +144,7 @@ and open the template in the editor.
 
     100%{
         visibility: hidden;
-        opacity: 1;
+        opacity: 0;
         border-radius: 100%;
         transform: scale(20);
     }
@@ -307,20 +311,18 @@ and open the template in the editor.
     background-color: var(--accent-color);
     box-shadow:rgb(160, 160, 160) 1px 3px 3.5px;
     overflow: hidden;
-    transition: box-shadow 0.3s ease-in-out 0s, transform 0.5s ease-in-out 0s, visibility 0s ease-in-out 0.5s, bottom 0.5s linear 0s, right 0.5s linear 0s, background-color 0.2s linear 0s;
+    transition: box-shadow 0.2s ease-in-out 0s, transform 0.5s ease-in-out 0s, visibility 0s ease-in-out 0.5s, bottom 0.5s linear 0s, right 0.5s linear 0s, background-color 0.2s linear 0s;
     padding: 20px;
     z-index: 1002;
 }
-.FloatingActionButton:hover{
-    z-index: 2;
-}
+
 
 .FloatingActionButton:active{
-    background-color: var(--accent-active-color);
+    
     box-shadow: rgb(130, 130, 130) 3px 5px 5px;
 }
 
-.ripple-effect.FloatingActionButton:after{
+.FloatingActionButton>.ripple{
     border-radius:100%;
     content: '';
     position: absolute;
@@ -335,13 +337,6 @@ and open the template in the editor.
 
 }
 
-.ripple-effect.FloatingActionButton:hover:after{
-    border-radius:100%;
-    animation: ripple;
-    animation-duration: 1s;
-    animation-timing-function: ease-in-out;
-    animation-fill-mode: backwards;
-}
 
 
 
@@ -560,6 +555,14 @@ input[type=range]::-webkit-slider-thumb::before{
 }
 
 
+.linear-layout-hor{
+    position: absolute;
+    display: inline-block;
+}
+.linear-layout-hor>.mcard{
+    position: relative;
+}
+
 
 
 .button > p{
@@ -579,7 +582,7 @@ i{
 }
 
 
-p,label{
+p,label, a{
     cursor: default;
     z-index: 1;
     font-family: Roboto;
@@ -623,7 +626,7 @@ br{
 
 @font-face{
     font-family: Roboto;
-    src: url(RobotoCondensed-Regular.ttf);
+    src: url(Roboto-Regular.ttf);
 }
 
 

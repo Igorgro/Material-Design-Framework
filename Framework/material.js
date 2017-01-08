@@ -7,7 +7,7 @@ var SNACKBAR_LONG_DELAY = 3500;
 var SNACKBAR_SHORT_DELAY = 2000;
 
 function init(){
-    
+
     
     //Intialising textfields
     var textFields = document.getElementsByClassName('mtextfield');
@@ -46,9 +46,45 @@ function init(){
     snackbar.appendChild (document.createElement('p'));
     document.body.appendChild (snackbar);
     
+    
+    
     document.body.ondragstart = function (event){
         return false;
     };
+    
+    //Initialising ripple effect
+    var buttonsWithRipple = document.getElementsByClassName('ripple-effect');
+    
+    for (var i = 0; i < buttonsWithRipple.length; i++){
+        buttonsWithRipple[i].onclickaction = new Function(buttonsWithRipple[i].getAttribute ('onclick'));
+        buttonsWithRipple[i].removeAttribute ('onclick');
+        
+        var ripple = document.createElement('div');
+        ripple.className = 'ripple';
+        
+        buttonsWithRipple[i].ripple = ripple;
+        buttonsWithRipple[i].appendChild (ripple);
+        
+        buttonsWithRipple[i].onclick = function (){
+            var br = this.getBoundingClientRect();
+            
+
+            this.ripple.style.left = event.clientX - br.left - 5+'px';
+            this.ripple.style.top = event.clientY - br.top - 5+'px';
+            
+            this.ripple.className = "ripple ripple-active";
+            
+            setTimeout (function (rip){
+                rip.className = 'ripple';
+                
+            }, 500, this.ripple);
+            
+            this.onclickaction();
+        };
+        
+    }
+    
+    
     
     //Allow user make document initialisation
     if (window["main"] !== undefined) window["main"]();
@@ -64,7 +100,7 @@ function init(){
  * @param {function[]} functions Names of functions, which calling on clicking on context menus's items 
  */
 function createContextMenu (element, items, functions){
-    alert (typeof functions[0]);
+    //alert (typeof functions[0]);
     element.oncontextmenu = function (){
         //if (document.getElementById('contextMenu') !== null) this.removeChild (document.getElementById('contextMenu'));
         if (document.getElementsByClassName('contextmenu')[0] !== undefined){
@@ -110,87 +146,87 @@ function setTheme (name){
     switch (name){
         case "Red":
             bodyStyle.setProperty("--primary-color","#F44336");
-            bodyStyle.setProperty("--ripple-color","#EF5350");
-            bodyStyle.setProperty("--active-color", "#D32F2F");
+            bodyStyle.setProperty("--hover-color","#EF5350");
+            bodyStyle.setProperty("--ripple-color", "#D32F2F");
             break;
         case "Pink":
             bodyStyle.setProperty("--primary-color","#E91E63");
-            bodyStyle.setProperty("--ripple-color","#EC407A");
-            bodyStyle.setProperty("--active-color", "#C2185B");
+            bodyStyle.setProperty("--hover-color","#EC407A");
+            bodyStyle.setProperty("--ripple-color", "#C2185B");
             break;
         case "Purple":
             bodyStyle.setProperty("--primary-color","#9C27B0");
-            bodyStyle.setProperty("--ripple-color","#AB47BC");
-            bodyStyle.setProperty("--active-color", "#7B1FA2");
+            bodyStyle.setProperty("--hover-color","#AB47BC");
+            bodyStyle.setProperty("--ripple-color", "#7B1FA2");
             break;
         case "Deep Purple":
             bodyStyle.setProperty("--primary-color","#673AB7");
-            bodyStyle.setProperty("--ripple-color","#7E57C2");
-            bodyStyle.setProperty("--active-color", "#512DA8");
+            bodyStyle.setProperty("--hover-color","#7E57C2");
+            bodyStyle.setProperty("--ripple-color", "#512DA8");
             break;
         case "Indigo":
             bodyStyle.setProperty("--primary-color","#3F51B5");
-            bodyStyle.setProperty("--ripple-color","#5C6BC0");
-            bodyStyle.setProperty("--active-color", "#303F9F");
+            bodyStyle.setProperty("--hover-color","#5C6BC0");
+            bodyStyle.setProperty("--ripple-color", "#303F9F");
             break;
         case "Blue":
             bodyStyle.setProperty("--primary-color","#2196F3");
-            bodyStyle.setProperty("--ripple-color","#42A5F5");
-            bodyStyle.setProperty("--active-color", "#1976D2");
+            bodyStyle.setProperty("--hover-color","#42A5F5");
+            bodyStyle.setProperty("--ripple-color", "#1976D2");
             break;
         case "Light Blue":
             bodyStyle.setProperty("--primary-color","#03A9F4");
-            bodyStyle.setProperty("--ripple-color","#29B6F6");
-            bodyStyle.setProperty("--active-color", "#0288D1");
+            bodyStyle.setProperty("--hover-color","#29B6F6");
+            bodyStyle.setProperty("--ripple-color", "#0288D1");
             break;
         case "Cyan":
             bodyStyle.setProperty("--primary-color","#00BCD4");
-            bodyStyle.setProperty("--ripple-color","##26C6DA");
-            bodyStyle.setProperty("--active-color", "#0097A7");
+            bodyStyle.setProperty("--hover-color","##26C6DA");
+            bodyStyle.setProperty("--ripple-color", "#0097A7");
             break;
         case "Teal":
             bodyStyle.setProperty("--primary-color","#009688");
-            bodyStyle.setProperty("--ripple-color","#26A69A");
-            bodyStyle.setProperty("--active-color", "#00796B");
+            bodyStyle.setProperty("--hover-color","#26A69A");
+            bodyStyle.setProperty("--ripple-color", "#00796B");
             break;
         case "Green":
             bodyStyle.setProperty("--primary-color","#4CAF50");
-            bodyStyle.setProperty("--ripple-color","#66BB6A");
-            bodyStyle.setProperty("--active-color", "#388E3C");
+            bodyStyle.setProperty("--hover-color","#66BB6A");
+            bodyStyle.setProperty("--ripple-color", "#388E3C");
             break;
         case "Light Green":
             bodyStyle.setProperty("--primary-color","#8BC34A");
-            bodyStyle.setProperty("--ripple-color","#9CCC65");
-            bodyStyle.setProperty("--active-color", "#689F38");
+            bodyStyle.setProperty("--hover-color","#9CCC65");
+            bodyStyle.setProperty("--ripple-color", "#689F38");
             break;
         case "Lime":
             bodyStyle.setProperty("--primary-color","#CDDC39");
-            bodyStyle.setProperty("--ripple-color","#D4E157");
-            bodyStyle.setProperty("--active-color", "#AFB42B");
+            bodyStyle.setProperty("--hover-color","#D4E157");
+            bodyStyle.setProperty("--ripple-color", "#AFB42B");
             break;
         case "Yellow":
             bodyStyle.setProperty("--primary-color","#FFEB3B");
-            bodyStyle.setProperty("--ripple-color","#FFEE58");
-            bodyStyle.setProperty("--active-color", "#FBC02D");
+            bodyStyle.setProperty("--hover-color","#FFEE58");
+            bodyStyle.setProperty("--ripple-color", "#FBC02D");
             break;
         case "Amber":
             bodyStyle.setProperty("--primary-color","#FFC107");
-            bodyStyle.setProperty("--ripple-color","#FFCA28");
-            bodyStyle.setProperty("--active-color", "#FFA000");
+            bodyStyle.setProperty("--hover-color","#FFCA28");
+            bodyStyle.setProperty("--ripple-color", "#FFA000");
             break;
         case "Orange":
             bodyStyle.setProperty("--primary-color","#FF9800");
-            bodyStyle.setProperty("--ripple-color","#FFA726");
-            bodyStyle.setProperty("--active-color", "#F57C00");
+            bodyStyle.setProperty("--hover-color","#FFA726");
+            bodyStyle.setProperty("--ripple-color", "#F57C00");
             break;
         case "Deep Orange":
             bodyStyle.setProperty("--primary-color","#FF5722");
-            bodyStyle.setProperty("--ripple-color","#FF7043");
-            bodyStyle.setProperty("--active-color", "#E64A19");
+            bodyStyle.setProperty("--hover-color","#FF7043");
+            bodyStyle.setProperty("--ripple-color", "#E64A19");
             break;
         default :
             bodyStyle.setProperty("--primary-color","#000000");
-            bodyStyle.setProperty("--ripple-color","#FFFFFF");
+            bodyStyle.setProperty("--hover-color","#FFFFFF");
             break;
     }
 }
@@ -204,83 +240,83 @@ function setAccentColor (name){
     switch (name){
         case "Red":
             bodyStyle.setProperty("--accent-color","#FF5252");
-            bodyStyle.setProperty("--accent-ripple-color","#FF8A80");
-            bodyStyle.setProperty("--accent-active-color","#FF1744");
+            bodyStyle.setProperty("--accent-hover-color","#FF8A80");
+            bodyStyle.setProperty("--accent-ripple-color","#FF1744");
             break;
         case "Pink":
             bodyStyle.setProperty("--accent-color","#FF4081");
-            bodyStyle.setProperty("--accent-ripple-color","#FF80AB");
-            bodyStyle.setProperty("--accent-active-color","#F50057");
+            bodyStyle.setProperty("--accent-hover-color","#FF80AB");
+            bodyStyle.setProperty("--accent-ripple-color","#F50057");
             break;
         case "Purple":
             bodyStyle.setProperty("--accent-color","#E040FB");
-            bodyStyle.setProperty("--accent-ripple-color","#EA80FC");
-            bodyStyle.setProperty("--accent-active-color","#D500F9");
+            bodyStyle.setProperty("--accent-hover-color","#EA80FC");
+            bodyStyle.setProperty("--accent-ripple-color","#D500F9");
             break;
         case "Deep Purple":
             bodyStyle.setProperty("--accent-color","#7C4DFF");
-            bodyStyle.setProperty("--accent-ripple-color","#B388FF");
-            bodyStyle.setProperty("--accent-active-color","#651FFF");
+            bodyStyle.setProperty("--accent-hover-color","#B388FF");
+            bodyStyle.setProperty("--accent-ripple-color","#651FFF");
             break;
         case "Indigo":
             bodyStyle.setProperty("--accent-color","#536DFE");
-            bodyStyle.setProperty("--accent-ripple-color","#8C9EFF");
-            bodyStyle.setProperty("--accent-active-color","#3D5AFE");
+            bodyStyle.setProperty("--accent-hover-color","#8C9EFF");
+            bodyStyle.setProperty("--accent-ripple-color","#3D5AFE");
             break;
         case "Blue":
             bodyStyle.setProperty("--accent-color","#448AFF");
-            bodyStyle.setProperty("--accent-ripple-color","#82B1FF");
-            bodyStyle.setProperty("--accent-active-color","#2979FF");
+            bodyStyle.setProperty("--accent-hover-color","#82B1FF");
+            bodyStyle.setProperty("--accent-ripple-color","#2979FF");
             break;
         case "Light Blue":
             bodyStyle.setProperty("--accent-color","#40C4FF");
-            bodyStyle.setProperty("--accent-ripple-color","#80D8FF");
-            bodyStyle.setProperty("--accent-active-color","#00B0FF");
+            bodyStyle.setProperty("--accent-hover-color","#80D8FF");
+            bodyStyle.setProperty("--accent-ripple-color","#00B0FF");
             break;
         case "Cyan":
             bodyStyle.setProperty("--accent-color","#18FFFF");
-            bodyStyle.setProperty("--accent-ripple-color","#84FFFF");
-            bodyStyle.setProperty("--accent-active-color","#00E5FF");
+            bodyStyle.setProperty("--accent-hover-color","#84FFFF");
+            bodyStyle.setProperty("--accent-ripple-color","#00E5FF");
             break;
         case "Teal":
             bodyStyle.setProperty("--accent-color","#64FFDA");
-            bodyStyle.setProperty("--accent-ripple-color","#A7FFEB");
-            bodyStyle.setProperty("--accent-active-color","#1DE9B6");
+            bodyStyle.setProperty("--accent-hover-color","#A7FFEB");
+            bodyStyle.setProperty("--accent-ripple-color","#1DE9B6");
             break;
         case "Green":
             bodyStyle.setProperty("--accent-color","#69F0AE");
-            bodyStyle.setProperty("--accent-ripple-color","#B9F6CA");
-            bodyStyle.setProperty("--accent-active-color","#00E676");
+            bodyStyle.setProperty("--accent-hover-color","#B9F6CA");
+            bodyStyle.setProperty("--accent-ripple-color","#00E676");
             break;
         case "Light Green":
             bodyStyle.setProperty("--accent-color","#B2FF59");
-            bodyStyle.setProperty("--accent-ripple-color","#CCFF90");
-            bodyStyle.setProperty("--accent-active-color","#76FF03");
+            bodyStyle.setProperty("--accent-hover-color","#CCFF90");
+            bodyStyle.setProperty("--accent-ripple-color","#76FF03");
             break;
         case "Lime":
             bodyStyle.setProperty("--accent-color","#EEFF41");
-            bodyStyle.setProperty("--accent-ripple-color","#F4FF81");
-            bodyStyle.setProperty("--accent-active-color","#C6FF00");
+            bodyStyle.setProperty("--accent-hover-color","#F4FF81");
+            bodyStyle.setProperty("--accent-ripple-color","#C6FF00");
             break;
         case "Yellow":
             bodyStyle.setProperty("--accent-color","#FFFF00");
-            bodyStyle.setProperty("--accent-ripple-color","#FFFF8D");
-            bodyStyle.setProperty("--accent-active-color","#FFEA00");
+            bodyStyle.setProperty("--accent-hover-color","#FFFF8D");
+            bodyStyle.setProperty("--accent-ripple-color","#FFEA00");
             break;
         case "Amber":
             bodyStyle.setProperty("--accent-color","#FFD740");
-            bodyStyle.setProperty("--accent-ripple-color","#FFE57F");
-            bodyStyle.setProperty("--accent-active-color","#FFC400");
+            bodyStyle.setProperty("--accent-hover-color","#FFE57F");
+            bodyStyle.setProperty("--accent-ripple-color","#FFC400");
             break;
         case "Orange":
             bodyStyle.setProperty("--accent-color","#FFAB40");
-            bodyStyle.setProperty("--accent-ripple-color","#FFD180");
-            bodyStyle.setProperty("--accent-active-color","#FF9100");
+            bodyStyle.setProperty("--accent-hover-color","#FFD180");
+            bodyStyle.setProperty("--accent-ripple-color","#FF9100");
             break;
         case "Deep Orange":
             bodyStyle.setProperty("--accent-color","#FF6E40");
-            bodyStyle.setProperty("--accent-ripple-color","#FF9E80");
-            bodyStyle.setProperty("--accent-active-color","#FF3D00");
+            bodyStyle.setProperty("--accent-hover-color","#FF9E80");
+            bodyStyle.setProperty("--accent-ripple-color","#FF3D00");
             break;
     }
 }
@@ -339,6 +375,22 @@ window.onload = init;
 
 
 
+function main(){
+    createContextMenu(document.body, ["Red", "Blue", "Orange"], [Red, Blue, Orange]);
+    setTheme("Orange");
+}
+
+function Red(e){
+    setTheme("Red");
+}
+
+function Blue(){
+    setTheme("Blue");
+}
+
+function Orange(){
+    setTheme("Orange");
+}
 
 
 
