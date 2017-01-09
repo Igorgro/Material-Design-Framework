@@ -9,8 +9,6 @@ and open the template in the editor.
 */
 
 
-
-
 .mcard{
     overflow: hidden;
     border-radius: 2px;
@@ -60,6 +58,10 @@ and open the template in the editor.
     box-shadow: rgb(160, 160, 160) 2px 5px 4.5px;
 }
 
+.button:not(.ripple-effect):active{
+    background-color: var(--ripple-color);
+}
+
 .button>p{
     height: 2px;
     margin: 0px;
@@ -89,6 +91,10 @@ and open the template in the editor.
 .flatbutton>.ripple{
     background-color: #CCCCCC;
 }
+.flatbutton:not(.ripple-effect):active{
+    background-color: #CCCCCC;
+}
+
 .flatbutton:disabled>p{
     color: #B0B0B0;
 }
@@ -122,6 +128,7 @@ and open the template in the editor.
     z-index: 0;
     opacity: 1;
     overflow: hidden;
+    cursor: default;
 }
 
 .ripple.ripple-active{
@@ -151,7 +158,7 @@ and open the template in the editor.
 }
 
 
-.checkbox,.radio{
+.checkbox, .radio, .switch{
     visibility: hidden;
 }
 
@@ -299,6 +306,73 @@ and open the template in the editor.
 }
 
 
+/* Material switch */
+.switch+label{
+    color: #6D6D6D;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    margin-left: 24px;
+    position: relative;
+}
+
+.switch+label:before{
+    content: '';
+    position: absolute;
+    left:-48px;
+    top: 2px;
+    width:36px;
+    height:14px;
+    background-color: #000000;
+    opacity: 0.38;
+    border-radius: 100px;
+    transition: background-color 0.2s linear 0s, opacity 0.2s linear 0s;
+}
+
+.switch+label:after{
+    content: '';
+    position: absolute;
+    left:-48px;
+    top: -1px;
+    width:20px;
+    height:20px;
+    box-shadow:rgb(140, 140, 140) 0px 1px 5px;
+    background-color: #FAFAFA;
+    opacity: 1;
+    border-radius: 100px;
+    transition: background-color 0.2s ease-in-out 0s, box-shadow 0.2s ease-in-out 0s, left 0.2s ease-in-out 0s;
+}
+
+
+.switch:checked+label:before{
+    background-color: var(--primary-color);
+    opacity: 0.54117646813;
+}
+
+.switch:checked+label:after{
+    background-color: var(--primary-color);
+    opacity: 1;
+    left: -32px;
+    box-shadow:rgb(120, 120, 120) 0px 1px 6px;
+}
+
+.switch:disabled+label:before, .switch:checked:disabled+label:before{
+    background-color: #000000;
+    opacity: 0.108;
+}
+.switch:disabled+label:after{
+    background-color: #BDBDBD;
+    opacity: 1;
+    left: -48px;
+    box-shadow:rgb(140, 140, 140) 0px 1px 5px;
+}
+
+.switch:checked:disabled+label:after{
+    background-color: #BDBDBD;
+    opacity: 1;
+    left: -32px;
+    box-shadow:rgb(140, 140, 140) 0px 1px 5px;
+}
+
 
 
 /*Floating Action Button */
@@ -316,9 +390,11 @@ and open the template in the editor.
     z-index: 1002;
 }
 
+.FloatingActionButton:hover{
+    /*background-color: var(--accent-hover-color);*/
+}
 
 .FloatingActionButton:active{
-    
     box-shadow: rgb(130, 130, 130) 3px 5px 5px;
 }
 
@@ -337,7 +413,9 @@ and open the template in the editor.
 
 }
 
-
+.FloatingActionButton:not(.ripple-effect):active{
+    background-color: var(--accent-ripple-color);
+}
 
 
 
@@ -447,11 +525,15 @@ input[type=range]::-webkit-slider-thumb::before{
     width:calc(100% + 2px);
     box-shadow: 0 2px 5px rgba(0,0,0,.26);
     height: 64px;
-    max-height: 70px;
     top:0px;
-    left:-2px;
+    left:0px;
     overflow: hidden;
     z-index:999;
+    display: inline-block;
+}
+.toolbar.with-tabs{
+    height:112px;
+        
 }
 .toolbar>h3{
     position: relative;
@@ -460,6 +542,39 @@ input[type=range]::-webkit-slider-thumb::before{
     top:20px;
     left:22px;
     color:white;
+}
+
+
+.tabs-container{
+    /*background-color: black;*/
+    position: relative;
+    width: calc(100% - 3px);
+    height: 48px;
+    max-height: 48px;
+    bottom: -41px;
+    float: bottom;
+    display: inline-block;
+    left:5px;
+    white-space:nowrap;
+
+
+}
+.tabber+label{
+    width:100%;
+    margin:auto;
+    position: relative;
+    width: 100%;
+}
+
+
+.tab{
+    white-space:nowrap;
+    margin: 0px;
+    height: 46px;
+    display: inline-block;
+    background-color: cyan;
+    border:1px black solid;
+    margin-left: -5px;
 }
 
 

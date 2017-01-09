@@ -6,9 +6,7 @@
 var SNACKBAR_LONG_DELAY = 3500;
 var SNACKBAR_SHORT_DELAY = 2000;
 
-function init(){
-
-    
+function init(){    
     //Intialising textfields
     var textFields = document.getElementsByClassName('mtextfield');
     for (var i = 0; i< textFields.length; i++){
@@ -59,31 +57,53 @@ function init(){
         buttonsWithRipple[i].onclickaction = new Function(buttonsWithRipple[i].getAttribute ('onclick'));
         buttonsWithRipple[i].removeAttribute ('onclick');
         
-        var ripple = document.createElement('div');
-        ripple.className = 'ripple';
         
-        buttonsWithRipple[i].ripple = ripple;
-        buttonsWithRipple[i].appendChild (ripple);
         
         buttonsWithRipple[i].onclick = function (){
             var br = this.getBoundingClientRect();
             
+            var ripple = document.createElement('div');
+            ripple.className = 'ripple';
+        
 
-            this.ripple.style.left = event.clientX - br.left - 5+'px';
-            this.ripple.style.top = event.clientY - br.top - 5+'px';
             
-            this.ripple.className = "ripple ripple-active";
+            
+            ripple.style.left = event.clientX - br.left - 5+'px';
+            ripple.style.top = event.clientY - br.top - 5+'px';
+            
+            ripple.className = "ripple ripple-active";
+            
+            this.appendChild (ripple);
             
             setTimeout (function (rip){
                 rip.className = 'ripple';
                 
-            }, 500, this.ripple);
+                rip.parentNode.removeChild (rip);
+            }, 500, ripple);
             
             this.onclickaction();
         };
         
     }
     
+    //Initialising tabs
+    /*var tabs = document.getElementsByClassName("tab");
+    var percentage = (100/tabs.length)+'%';
+   
+    
+    var style = document.createElement('style');
+    style.innerHTML = '.tab{width: calc(' + percentage + " - " +'1px);}' ;
+    document.head.appendChild (style);
+    
+    for(var i = 0; i < tabs.length; i++){
+        tabs[i].innerHTML = "<input type='radio' class='tabber' id='tab"+i+"' name='tab'><label for='tab"+i+"'>"+tabs[i].getAttribute('label')+"</label>";
+        
+        var label = tabs[i].childNodes[1];
+        //alert (parseInt(getComputedStyle(tabs[i]).width) - parseInt(label.offsetWidth));
+        label.style.marginLeft = (parseInt(getComputedStyle(tabs[i]).width) - parseInt(label.offsetWidth))/2+'px';
+        label.style.marginRight = label.style.marginLeft;
+        label.style.marginTop = '200px';
+    }*/
     
     
     //Allow user make document initialisation
@@ -241,82 +261,82 @@ function setAccentColor (name){
         case "Red":
             bodyStyle.setProperty("--accent-color","#FF5252");
             bodyStyle.setProperty("--accent-hover-color","#FF8A80");
-            bodyStyle.setProperty("--accent-ripple-color","#FF1744");
+            bodyStyle.setProperty("--accent-ripple-color","#D50000");
             break;
         case "Pink":
             bodyStyle.setProperty("--accent-color","#FF4081");
             bodyStyle.setProperty("--accent-hover-color","#FF80AB");
-            bodyStyle.setProperty("--accent-ripple-color","#F50057");
+            bodyStyle.setProperty("--accent-ripple-color","#C51162");
             break;
         case "Purple":
             bodyStyle.setProperty("--accent-color","#E040FB");
             bodyStyle.setProperty("--accent-hover-color","#EA80FC");
-            bodyStyle.setProperty("--accent-ripple-color","#D500F9");
+            bodyStyle.setProperty("--accent-ripple-color","#AA00FF");
             break;
         case "Deep Purple":
             bodyStyle.setProperty("--accent-color","#7C4DFF");
             bodyStyle.setProperty("--accent-hover-color","#B388FF");
-            bodyStyle.setProperty("--accent-ripple-color","#651FFF");
+            bodyStyle.setProperty("--accent-ripple-color","#6200EA");
             break;
         case "Indigo":
             bodyStyle.setProperty("--accent-color","#536DFE");
             bodyStyle.setProperty("--accent-hover-color","#8C9EFF");
-            bodyStyle.setProperty("--accent-ripple-color","#3D5AFE");
+            bodyStyle.setProperty("--accent-ripple-color","#304FFE");
             break;
         case "Blue":
             bodyStyle.setProperty("--accent-color","#448AFF");
             bodyStyle.setProperty("--accent-hover-color","#82B1FF");
-            bodyStyle.setProperty("--accent-ripple-color","#2979FF");
+            bodyStyle.setProperty("--accent-ripple-color","#2962FF");
             break;
         case "Light Blue":
             bodyStyle.setProperty("--accent-color","#40C4FF");
             bodyStyle.setProperty("--accent-hover-color","#80D8FF");
-            bodyStyle.setProperty("--accent-ripple-color","#00B0FF");
+            bodyStyle.setProperty("--accent-ripple-color","#0091EA");
             break;
         case "Cyan":
             bodyStyle.setProperty("--accent-color","#18FFFF");
             bodyStyle.setProperty("--accent-hover-color","#84FFFF");
-            bodyStyle.setProperty("--accent-ripple-color","#00E5FF");
+            bodyStyle.setProperty("--accent-ripple-color","#00B8D4");
             break;
         case "Teal":
             bodyStyle.setProperty("--accent-color","#64FFDA");
             bodyStyle.setProperty("--accent-hover-color","#A7FFEB");
-            bodyStyle.setProperty("--accent-ripple-color","#1DE9B6");
+            bodyStyle.setProperty("--accent-ripple-color","#00BFA5");
             break;
         case "Green":
             bodyStyle.setProperty("--accent-color","#69F0AE");
             bodyStyle.setProperty("--accent-hover-color","#B9F6CA");
-            bodyStyle.setProperty("--accent-ripple-color","#00E676");
+            bodyStyle.setProperty("--accent-ripple-color","#00C853");
             break;
         case "Light Green":
             bodyStyle.setProperty("--accent-color","#B2FF59");
             bodyStyle.setProperty("--accent-hover-color","#CCFF90");
-            bodyStyle.setProperty("--accent-ripple-color","#76FF03");
+            bodyStyle.setProperty("--accent-ripple-color","#64DD17");
             break;
         case "Lime":
             bodyStyle.setProperty("--accent-color","#EEFF41");
             bodyStyle.setProperty("--accent-hover-color","#F4FF81");
-            bodyStyle.setProperty("--accent-ripple-color","#C6FF00");
+            bodyStyle.setProperty("--accent-ripple-color","#AEEA00");
             break;
         case "Yellow":
             bodyStyle.setProperty("--accent-color","#FFFF00");
             bodyStyle.setProperty("--accent-hover-color","#FFFF8D");
-            bodyStyle.setProperty("--accent-ripple-color","#FFEA00");
+            bodyStyle.setProperty("--accent-ripple-color","#FFD600");
             break;
         case "Amber":
             bodyStyle.setProperty("--accent-color","#FFD740");
             bodyStyle.setProperty("--accent-hover-color","#FFE57F");
-            bodyStyle.setProperty("--accent-ripple-color","#FFC400");
+            bodyStyle.setProperty("--accent-ripple-color","#FFAB00");
             break;
         case "Orange":
             bodyStyle.setProperty("--accent-color","#FFAB40");
             bodyStyle.setProperty("--accent-hover-color","#FFD180");
-            bodyStyle.setProperty("--accent-ripple-color","#FF9100");
+            bodyStyle.setProperty("--accent-ripple-color","#FF6D00");
             break;
         case "Deep Orange":
             bodyStyle.setProperty("--accent-color","#FF6E40");
             bodyStyle.setProperty("--accent-hover-color","#FF9E80");
-            bodyStyle.setProperty("--accent-ripple-color","#FF3D00");
+            bodyStyle.setProperty("--accent-ripple-color","#DD2C00");
             break;
     }
 }
