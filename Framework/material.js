@@ -86,6 +86,9 @@ function init(){
         
     }
     
+    initExpansionPanels();
+    
+    
     //Initialising tabs
     /*var tabs = document.getElementsByClassName("tab");
     var percentage = (100/tabs.length)+'%';
@@ -110,7 +113,33 @@ function init(){
     if (window["main"] !== undefined) window["main"]();
 }
 
-
+function initExpansionPanels (){
+    var expPanels = document.getElementsByClassName("expansion-panel");
+    for (var i = 0; i < expPanels.length; i++) {
+        var expButton = document.createElement("div");
+        expButton.className = "expand-button";
+        expButton.innerHTML = "<i class='material-icons' style='color:#939393;'>keyboard_arrow_down</i>";
+        
+        expButton.onclick = function () {
+            //alert (this.parentNode.scrollHeight);
+            if (this.parentNode.expanded){
+                this.parentNode.style.height = "48px";
+                this.innerHTML = "<i class='material-icons' style='color:#939393;'>keyboard_arrow_down</i>";
+            }
+            else {
+               this.parentNode.style.height = this.parentNode.scrollHeight+'px';
+               this.innerHTML = "<i class='material-icons' style='color:#939393;'>keyboard_arrow_up</i>";
+            }
+            this.parentNode.expanded = !this.parentNode.expanded;
+            
+        } 
+        
+        expPanels[i].appendChild (expButton);
+        
+        expPanels[i].style.height="48px";
+        expPanels[i].expanded = false;
+    }
+}
 
 
 /**

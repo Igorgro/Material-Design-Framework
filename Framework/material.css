@@ -7,7 +7,9 @@ and open the template in the editor.
     Created on : 18.10.2016, 18:30:55
     Author     : Igorgro
 */
-
+body{
+    cursor: default;
+}
 
 .mcard{
     overflow: hidden;
@@ -443,7 +445,7 @@ input[type=range]::-webkit-slider-thumb{
 }
 
 input[type=range]::-webkit-slider-thumb:active{
-    background-color: var(--active-color);
+    background-color: var(--ripple-color);
 }
 
 input[type=range]::-webkit-slider-runnable-track {
@@ -462,21 +464,19 @@ input[type=range]::-webkit-slider-thumb::before{
 
 
 
-
 /* Textfield */
 .mtextfield{
     height: auto;
     width: 100%;
     position: relative;
     padding-bottom: 8px;   
-
+    cursor: text;
     transition: border-bottom-color 0.2s ease-in-out 0s;
     border-bottom: solid 1px;
     border-bottom-color: #C8C8C8;
     outline: none;
     font-family: Roboto;
     z-index: 3;
-
 }
 
 .mtextfield:focus{
@@ -678,6 +678,44 @@ input[type=range]::-webkit-slider-thumb::before{
     position: relative;
 }
 
+.expansion-panel{
+    box-shadow:0px 1px 3px rgb(160, 160, 160);
+    background-color: white;
+    border-radius: 2px;
+    overflow: hidden;
+    display: inline-block;
+    transition: height 0.2s ease-in-out 0s;
+}
+.expansion-panel>*:not(.expand-button):not(.divider){
+    margin-left:24px;
+    margin-right: 24px;
+    position: relative;
+}
+.expansion-panel>h5{
+    position: relative;
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+.expansion-panel>p{
+    font-size: 10pt;
+}
+
+.expand-button{
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    right: 24px;
+    top:12px;
+    z-index: 100;
+}
+
+.expand-button:hover{
+    background-color: #DDDDDD;
+}
+
+.expand-button:active{
+    background-color: #CCCCCC;
+}
 
 
 .button > p{
