@@ -14,15 +14,19 @@ Available components:
 
 -Buttons
 
-  -Floating Action Buttons
+   -Floating Action Buttons
   
 -Checkboxes
 
 -Radio buttons
 
+-Switches
+
 -Sliders
 
 -Text fields
+
+-Expansion panels
 
 -Scrollbars
 
