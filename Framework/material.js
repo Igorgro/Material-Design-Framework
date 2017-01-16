@@ -19,6 +19,7 @@ function init(){
         return false;
     };
     
+    //Hide all context menu when user clicked on document's body
     document.body.onclick = function () {
         var contextmenus = document.getElementsByClassName('contextmenu');
         for (var i = 0; i < contextmenus.length; i++){
@@ -28,65 +29,21 @@ function init(){
     
     
     //Setting backdrop
-    var backDrop = document.createElement('div');
-    backDrop.className = "backdrop";
-    backDrop.style.backgroundColor = "rgba(0, 0, 0, 0);";
-    backDrop.style.visibility = "hidden";
-    backDrop.id="backDrop";
-    document.body.appendChild (backDrop);
+    initBackdrop(); 
     
     //Creating snackbar
-    var snackbar = document.createElement('div');
-    snackbar.className = 'snackbar';
-    snackbar.id = 'snackbar';
-    snackbar.style.bottom = '-48px';
-    snackbar.style.left = '0px';
-    snackbar.appendChild (document.createElement('p'));
-    document.body.appendChild (snackbar);
-    
-    
+    initSnackbar();
     
     document.body.ondragstart = function (event){
         return false;
     };
     
     //Initialising ripple effect
-    var buttonsWithRipple = document.getElementsByClassName('ripple-effect');
-    
-    for (var i = 0; i < buttonsWithRipple.length; i++){
-        buttonsWithRipple[i].onclickaction = new Function(buttonsWithRipple[i].getAttribute ('onclick'));
-        buttonsWithRipple[i].removeAttribute ('onclick');
-        
-        
-        
-        buttonsWithRipple[i].onclick = function (){
-            var br = this.getBoundingClientRect();
-            
-            var ripple = document.createElement('div');
-            ripple.className = 'ripple';
-        
-
-            
-            
-            ripple.style.left = event.clientX - br.left - 5+'px';
-            ripple.style.top = event.clientY - br.top - 5+'px';
-            
-            ripple.className = "ripple ripple-active";
-            
-            this.appendChild (ripple);
-            
-            setTimeout (function (rip){
-                rip.className = 'ripple';
-                
-                rip.parentNode.removeChild (rip);
-            }, 500, ripple);
-            
-            this.onclickaction();
-        };
-        
-    }
+    initRippleEffect();
     
     initExpansionPanels();
+    
+    initMainMenu();
     
     
     //Initialising tabs
@@ -111,6 +68,60 @@ function init(){
     
     //Allow user make document initialisation
     if (window["main"] !== undefined) window["main"]();
+}
+
+function initBackdrop(){
+    var backDrop = document.createElement('div');
+    backDrop.className = "backdrop";
+    backDrop.style.backgroundColor = "rgba(0, 0, 0, 0);";
+    backDrop.style.visibility = "hidden";
+    backDrop.id="backDrop";
+    backDrop.onclick =function (){hideMainMenu();};
+    document.body.appendChild (backDrop);
+   
+}
+
+function initSnackbar() {
+    var snackbar = document.createElement('div');
+    snackbar.className = 'snackbar';
+    snackbar.id = 'snackbar';
+    snackbar.style.bottom = '-48px';
+    snackbar.style.left = '0px';
+    snackbar.appendChild (document.createElement('p'));
+    document.body.appendChild (snackbar);
+}
+
+function initRippleEffect() {
+    var buttonsWithRipple = document.getElementsByClassName('ripple-effect');
+    
+    for (var i = 0; i < buttonsWithRipple.length; i++){
+        buttonsWithRipple[i].ondownaction = new Function(buttonsWithRipple[i].getAttribute ('onmousedown'));
+        buttonsWithRipple[i].removeAttribute ('onmousedown');
+        
+        
+        buttonsWithRipple[i].onmousedown = function (){
+            var br = this.getBoundingClientRect();
+            
+            var ripple = document.createElement('div');
+            ripple.className = 'ripple';
+        
+            ripple.style.left = event.clientX - br.left - 10+'px';
+            ripple.style.top = event.clientY - br.top - 10+'px';
+            
+            ripple.className = "ripple ripple-active";
+            
+            this.appendChild (ripple);
+            
+            setTimeout (function (rip){
+                rip.className = 'ripple';
+                
+                rip.parentNode.removeChild (rip);
+            }, 800, ripple);
+            
+            this.ondownaction();
+        };
+        
+    }
 }
 
 function initExpansionPanels (){
@@ -138,6 +149,13 @@ function initExpansionPanels (){
         
         expPanels[i].style.height="48px";
         expPanels[i].expanded = false;
+    }
+}
+
+function initMainMenu(){
+    var mainMenu = document.getElementsByClassName('main-menu')[0];
+    if (mainMenu !== undefined){
+        mainMenu.style.left = '-300px';
     }
 }
 
@@ -282,6 +300,8 @@ function setTheme (name){
 
 /**
  * Sets accent color for webpage
+ *  @see <a href="https://material.io/guidelines/style/color.html#color-color-palettetext">Material Colors</a>  for available colors
+ *  
  * @param {string} name Color name
  */
 function setAccentColor (name){
@@ -377,7 +397,6 @@ function hideFAB (elem){
     var elemStyle = elem.style;
     elemStyle.setProperty ("transform", "scale(0.1)");
     elemStyle.setProperty ("visibility", "hidden");
-    //alert(elem.style.tranform);
     
 }
 
@@ -418,6 +437,32 @@ function showSnackbar (text, duration){
     }, duration, snackbar);
 }
 
+function showMainMenu(){
+    showBackdrop();
+    
+    var mainMenu = document.getElementsByClassName('main-menu')[0];
+    if (mainMenu !== undefined){
+        mainMenu.style.left = '0px';
+    }
+}
+
+function hideMainMenu(){
+    hideBackdrop();
+    
+    var mainMenu = document.getElementsByClassName('main-menu')[0];
+    if (mainMenu !== undefined){
+        mainMenu.style.left = '-300px';
+    }
+}
+
+function showBackdrop(){
+    document.getElementById("backDrop").style.visibility = "visible";
+    document.getElementById("backDrop").style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+}
+function hideBackdrop(){
+    document.getElementById("backDrop").style.visibility = "hidden";
+    document.getElementById("backDrop").style.backgroundColor = "rgba(0, 0, 0, 0)";
+}
 
 window.onload = init;
 

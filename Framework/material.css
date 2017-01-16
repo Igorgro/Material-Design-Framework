@@ -123,8 +123,8 @@ body{
     border-radius: 100%;
     content: ' ';
     position: absolute;
-    width: 10px;
-    height: 10px;
+    width: 20px;
+    height: 20px;
     visibility: hidden;
     background-color: var(--ripple-color);
     z-index: 0;
@@ -136,7 +136,7 @@ body{
 .ripple.ripple-active{
     border-radius: 100%;
     animation: rippleAnim;
-    animation-duration: 0.5s;
+    animation-duration: 0.8s;
     animation-timing-function: ease-in-out;
     animation-fill-mode: backwards;
 }
@@ -148,7 +148,7 @@ body{
         visibility: visible;
         opacity: 1;
         border-radius:100%;
-        transform: scale(0.1);
+        transform: scale(0.05);
     }
 
     100%{
@@ -381,15 +381,15 @@ body{
 .FloatingActionButton{
     position: fixed;
     display: inline-block;
-    width: 26px;
-    height: 26px;
+    width: 24px;
+    height: 24px;
     border-radius: 36px;
     background-color: var(--accent-color);
-    box-shadow:rgb(160, 160, 160) 1px 3px 3.5px;
+    box-shadow:rgb(160, 160, 160) 1px 3px 4px;
     overflow: hidden;
     transition: box-shadow 0.2s ease-in-out 0s, transform 0.5s ease-in-out 0s, visibility 0s ease-in-out 0.5s, bottom 0.5s linear 0s, right 0.5s linear 0s, background-color 0.2s linear 0s;
-    padding: 20px;
-    z-index: 1002;
+    padding: 16px;
+    z-index: 999;
 }
 
 .FloatingActionButton:hover{
@@ -401,18 +401,7 @@ body{
 }
 
 .FloatingActionButton>.ripple{
-    border-radius:100%;
-    content: '';
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    visibility: hidden;
     background-color: var(--accent-ripple-color);
-    z-index: 0;
-    top:calc(50% - 5px);
-    left:calc(50% - 5px);
-    opacity: 1;
-
 }
 
 .FloatingActionButton:not(.ripple-effect):active{
@@ -453,14 +442,6 @@ input[type=range]::-webkit-slider-runnable-track {
     border-bottom: solid 3px #8F8F8F;
 }
 
-input[type=range]::-webkit-slider-thumb::before{
-    content: 'lol';
-    width: 100px;
-    height:100px;
-    color: black;
-    position: relative;
-}
-
 
 
 
@@ -476,7 +457,6 @@ input[type=range]::-webkit-slider-thumb::before{
     border-bottom-color: #C8C8C8;
     outline: none;
     font-family: Roboto;
-    z-index: 3;
 }
 
 .mtextfield:focus{
@@ -486,7 +466,6 @@ input[type=range]::-webkit-slider-thumb::before{
 }
 
 .mtextfield::before{
-    z-index: 3;
     content:attr(label) " ";
     color:#B2B4B6;
     transition: top 0.2s ease-in-out 0s, font-size 0.2s ease-in-out 0s;
@@ -531,17 +510,101 @@ input[type=range]::-webkit-slider-thumb::before{
     z-index:999;
     display: inline-block;
 }
+
+.toolbar-button{
+    position: relative;
+    margin-top: 8px;
+    margin-right: 0px;
+    margin-left: 8px;
+    height:48px;
+    width:48px;
+    float: left;
+    border-radius: 2px;
+    background-color: var(--primary-color);
+    cursor: pointer;
+}
+.toolbar-button>i{
+    margin-top: 12px;
+    margin-left: 12px;
+    cursor: pointer;
+}
+
+
 .toolbar.with-tabs{
     height:112px;
         
 }
 .toolbar>h3{
+    float: left;
     position: relative;
     top:0px;
     margin: 0px;
+    margin-left: 22px;
     top:20px;
-    left:22px;
     color:white;
+}
+
+/* Main menu */
+.main-menu{
+    display: inline-block;
+    position: fixed;
+    top: 0px;
+    width: 300px;
+    height: 100%;
+    background-color: #ECECEC;
+    z-index:1002;
+    
+    transition: left 0.1s linear 0s;
+}
+.main-menu>img{
+    position: relative;
+    width: 100%;
+}
+.main-menu>.divider{
+    margin-top: 2px;
+    margin-bottom: 6px;
+}
+.main-menu>p{
+    color: #757575;
+    margin-left: 18px;
+}
+
+
+/* Main menu item */
+.main-menu-item{
+    overflow: hidden;
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    height: 56px;
+    margin: 0px;
+
+}
+.main-menu-item>p{
+    position: relative;
+    top: 0px;
+    margin: 0px;
+    margin-top: 18px;
+    margin-left:16px;
+    display: inline-block;
+    float:left;
+}
+.main-menu-item>i{
+    float: left;
+    display: inline-block;
+    margin: 0px;
+    margin-top: 16px;
+    margin-left: 16px;
+    color: #757575;
+}
+.main-menu-item>.ripple{
+    background-color: #CCCCCC;
+}
+.main-menu-item:not(.ripple-effect):active{
+    background-color: #CCCCCC;
+}
+.main-menu-item:hover{
+    background-color: #DDDDDD;
 }
 
 
@@ -640,13 +703,13 @@ input[type=range]::-webkit-slider-thumb::before{
 
 /* Backdrop */
 .backdrop{
-    position: absolute;
+    position: fixed;
     top:0px;
     left:0px;
     width:100%;
     height: 100%;
     z-index: 1001;
-    transition: background-color 0.5s, linear, 0s;
+    transition: background-color 0.1s linear 0s;
 }
 
 
@@ -732,6 +795,7 @@ i{
     -ms-user-select: none;
     -o-user-select: none;
     user-select: none;
+    z-index: 1;
 }
 
 
@@ -761,7 +825,7 @@ h1,h2,h3,h4,h5,h6{
     user-select: none;
 }
 
-br{
+br, img{
     cursor: default;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
