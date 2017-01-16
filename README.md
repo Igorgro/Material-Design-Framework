@@ -14,7 +14,7 @@ Available components:
 
 -Buttons
 
-   -Floating Action Buttons
+-Floating Action Buttons
   
 -Checkboxes
 
@@ -31,4 +31,6 @@ Available components:
 -Scrollbars
 
 -Ripple effect (unstable)
+
+-Material drawer
 
