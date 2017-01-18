@@ -110,7 +110,7 @@ body{
     position: relative;
     padding: 8px;
     border-top: solid 0.5px #D2D2D2;
-    
+    float: bottom;
 }
 .buttons-container>.flatbutton{
     float: right;
@@ -435,6 +435,7 @@ input[type=range]::-webkit-slider-thumb{
 
 input[type=range]::-webkit-slider-thumb:active{
     background-color: var(--ripple-color);
+    z-index: 1;
 }
 
 input[type=range]::-webkit-slider-runnable-track {
@@ -442,8 +443,53 @@ input[type=range]::-webkit-slider-runnable-track {
     border-bottom: solid 3px #8F8F8F;
 }
 
+.slider{
+    height: 30px;
+}
+.slider>input[type=range]{
+    width: 100%;
+}
 
+.slider-helper{
+    background-color: var(--primary-color);
+    position: absolute;
+    top: 11.3px;
+    left:2px;
+    height: 3px;
+}
 
+.blob{
+    position: absolute; 
+    width:20px;
+    height: 20px;
+    border-radius: 20px;
+    background-color: var(--primary-color);
+    z-index: 998;
+    transition: opacity 0.2s linear 0s, visibility 0.2s linear 0s;
+}
+.blob:after{
+    content: '';
+    position: absolute;
+    width: 0;
+	height: 0;
+    top: 12px;
+    left: 0px;
+	border-left: 10px solid transparent;
+	border-right: 10.1px solid transparent;
+	border-top: 21px solid;
+    border-top-color: var(--primary-color);
+    border-radius:3px;
+    z-index:997;
+    
+}
+.blob>p{
+    position: absolute;
+    font-size:7pt;
+    top: 3.5px;
+    color: white;
+    margin: 0px;
+    z-index: 998;
+}
 
 /* Textfield */
 .mtextfield{
@@ -551,10 +597,10 @@ input[type=range]::-webkit-slider-runnable-track {
     top: 0px;
     width: 300px;
     height: 100%;
-    background-color: #ECECEC;
+    background-color: #FFFFFF;
     z-index:1002;
     
-    transition: left 0.1s linear 0s;
+    transition: left 0.2s linear 0s;
 }
 .main-menu>img{
     position: relative;
@@ -709,7 +755,7 @@ input[type=range]::-webkit-slider-runnable-track {
     width:100%;
     height: 100%;
     z-index: 1001;
-    transition: background-color 0.1s linear 0s;
+    transition: background-color 0.2s linear 0s, visibility 0.2s linear 0s;
 }
 
 
@@ -741,6 +787,7 @@ input[type=range]::-webkit-slider-runnable-track {
     position: relative;
 }
 
+/* Expansion panel */
 .expansion-panel{
     box-shadow:0px 1px 3px rgb(160, 160, 160);
     background-color: white;
@@ -780,9 +827,49 @@ input[type=range]::-webkit-slider-runnable-track {
     background-color: #CCCCCC;
 }
 
+.dialog{
+    z-index: 1002;
+    position: fixed;
+    background-color: #FFFFFF;
+    border-radius: 2px;
+    padding: 18px;
+    margin-top: 24px;
+    transition: opacity 0.2s linear 0s, visibility 0.2s linear 0s;
+}
+.dialog>.buttons-container{
+    bottom: -6px;
+    left:0px;
+    right: 0px;
+    position: absolute;
+}
+
+/* Title for dialog */
+.title{
+    background-color: var(--primary-color);
+    height: 60px;
+    width: calc(100% + 36px);
+    position: relative;
+    left:-18px;
+    top:-26px;
+    display: inline-block;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+}
+.title>h2{
+    margin: 0px;
+    margin-left: 18px;
+    margin-top:16px;
+    color:white;
+}
+.title>h3{
+    margin: 0px;
+    margin-left: 18px;
+    margin-top:18px;
+    color:white;
+}
 
 .button > p{
-    color:white;
+    color: white;
 }
 i{
     color: white;

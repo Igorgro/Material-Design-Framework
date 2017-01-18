@@ -45,6 +45,10 @@ function init(){
     
     initMainMenu();
     
+    initDialogs();
+    
+    initSliders();
+    
     
     //Initialising tabs
     /*var tabs = document.getElementsByClassName("tab");
@@ -76,7 +80,7 @@ function initBackdrop(){
     backDrop.style.backgroundColor = "rgba(0, 0, 0, 0);";
     backDrop.style.visibility = "hidden";
     backDrop.id="backDrop";
-    backDrop.onclick =function (){hideMainMenu();};
+    backDrop.onclick =function (){hideMainMenu(); hideDialogs()};
     document.body.appendChild (backDrop);
    
 }
@@ -159,6 +163,86 @@ function initMainMenu(){
     }
 }
 
+function initDialogs(){
+    var dialogs = document.getElementsByClassName('dialog');
+    for (var i = 0; i < dialogs.length; i++){
+        dialogs[i].style.visibility = 'hidden';
+        dialogs[i].style.opacity = '0';
+        
+        dialogs[i].style.left = 'calc(50% - '+(parseInt(getComputedStyle(dialogs[i]).width)/2)+'px)';
+        dialogs[i].style.top = 'calc(50% - '+(parseInt(getComputedStyle(dialogs[i]).height)/2)+'px)';
+    }
+}
+
+function initSliders(){
+    var sliders = document.getElementsByClassName('slider');
+    for (var i = 0; i < sliders.length; i++){
+        var sliderInput = document.createElement('input');
+        sliderInput.type = "range";
+        
+        sliderInput.setAttribute ('min', sliders[i].getAttribute('min'));
+        sliders[i].removeAttribute('min');
+        
+        sliderInput.setAttribute ('max', sliders[i].getAttribute('max'));
+        sliders[i].removeAttribute('max');
+        
+        sliderInput.setAttribute ('step', sliders[i].getAttribute('step'));
+        sliders[i].removeAttribute('step');
+        
+        sliderInput.setAttribute ('value', sliders[i].getAttribute('value'));
+        sliders[i].removeAttribute('value');
+        
+        sliders[i].appendChild (sliderInput);
+        
+        
+        var sliderHelper = document.createElement('div');
+        sliderHelper.className = 'slider-helper';
+        
+        sliders[i].appendChild (sliderHelper);
+        
+        sliderHelper.style.width = ((parseInt(getComputedStyle(sliderInput).width)-14)*(parseInt(sliderInput.value)/(parseInt(sliderInput.max)-parseInt(sliderInput.min)))+1)+'px';
+        
+        var sliderValuer = document.createElement('div');
+        sliderValuer.className = 'blob';
+        sliderValuer.style.left = ((parseInt(getComputedStyle(sliderInput).width)-14)*(parseInt(sliderInput.value)/(parseInt(sliderInput.max)-parseInt(sliderInput.min)))-1)+'px';
+        sliderValuer.style.top = '-27px';
+        sliderValuer.style.visibility = 'hidden';
+        sliderValuer.style.opacity = '0';
+        
+        var sliderValuerText = document.createElement('p');
+        sliderValuerText.innerHTML = 'a';
+        sliderValuer.appendChild(sliderValuerText);
+        
+        sliders[i].appendChild(sliderValuer);
+        
+        /* Adding interaction for slider helper */
+        sliders[i].onmousedown = function (){
+            var sliderValuer = this.childNodes[2];
+            sliderValuer.style.visibility = 'visible';
+            sliderValuer.style.opacity = '1';
+            this.onmousemove = function () {
+                var sliderHelper = this.childNodes[1];
+                var sliderInput = this.childNodes[0];
+                var sliderValuer = this.childNodes[2];
+                
+                sliderValuer.childNodes[0].innerHTML = sliderInput.value;
+                sliderValuer.childNodes[0].style.left = 'calc(50% - ' + (parseInt(getComputedStyle(sliderValuer.childNodes[0]).width)/2)+'px)';
+                
+                sliderHelper.style.width = ((parseInt(getComputedStyle(sliderInput).width)-14)*(parseInt(sliderInput.value)/(parseInt(sliderInput.max)-parseInt(sliderInput.min)))+1)+'px';
+                sliderValuer.style.left = ((parseInt(getComputedStyle(sliderInput).width)-14)*(parseInt(sliderInput.value)/(parseInt(sliderInput.max)-parseInt(sliderInput.min)))-1)+'px';
+            };
+            
+            this.onmouseup = function () {
+                var sliderValuer = this.childNodes[2];
+                sliderValuer.style.visibility = 'hidden';
+                sliderValuer.style.opacity = '0';
+                this.onmousemove = function (){};
+            };
+        };
+        
+    }
+    
+}
 
 /**
  * 
@@ -413,6 +497,7 @@ function transformFab (width, height){
     FAB.style.bottom = "calc(50% - "+parseInt(height/2)+"px)";
     FAB.style.right = "calc(50% - "+parseInt(width/2)+"px)";
     FAB.style.transition = getComputedStyle(FAB).transition+", border-radius 0.5s linear 0s, width 0.5s linear 0s, height 0.5s linear 0s";
+    FAB.style.zIndex= '1002';
     FAB.style.backgroundColor = "white";
     FAB.style.borderRadius = "2px";
     FAB.style.width = width+"px";
@@ -462,6 +547,24 @@ function showBackdrop(){
 function hideBackdrop(){
     document.getElementById("backDrop").style.visibility = "hidden";
     document.getElementById("backDrop").style.backgroundColor = "rgba(0, 0, 0, 0)";
+}
+
+
+function showDialog (dialog){
+    showBackdrop();
+    dialog.style.visibility = 'visible';
+    dialog.style.opacity = '1';
+}
+
+function hideDialogs (){
+    hideBackdrop();
+    
+    var dialogs = document.getElementsByClassName('dialog');
+    for (var i = 0; i < dialogs.length; i++){
+        dialogs[i].style.opacity = '0';
+        dialogs[i].style.visibility = 'hidden';
+        
+    }
 }
 
 window.onload = init;
