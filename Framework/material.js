@@ -6,7 +6,8 @@
 var SNACKBAR_LONG_DELAY = 3500;
 var SNACKBAR_SHORT_DELAY = 2000;
 
-function init(){    
+function init(){   
+    
     //Intialising textfields
     var textFields = document.getElementsByClassName('mtextfield');
     for (var i = 0; i< textFields.length; i++){
@@ -43,7 +44,7 @@ function init(){
     
     initExpansionPanels();
     
-    initMainMenu();
+    initNavDrawer();
     
     initDialogs();
     
@@ -51,26 +52,14 @@ function init(){
     
     
     //Initialising tabs
-    /*var tabs = document.getElementsByClassName("tab");
-    var percentage = (100/tabs.length)+'%';
-   
+    initTabs();
     
-    var style = document.createElement('style');
-    style.innerHTML = '.tab{width: calc(' + percentage + " - " +'1px);}' ;
-    document.head.appendChild (style);
+    fixFab();
     
-    for(var i = 0; i < tabs.length; i++){
-        tabs[i].innerHTML = "<input type='radio' class='tabber' id='tab"+i+"' name='tab'><label for='tab"+i+"'>"+tabs[i].getAttribute('label')+"</label>";
-        
-        var label = tabs[i].childNodes[1];
-        //alert (parseInt(getComputedStyle(tabs[i]).width) - parseInt(label.offsetWidth));
-        label.style.marginLeft = (parseInt(getComputedStyle(tabs[i]).width) - parseInt(label.offsetWidth))/2+'px';
-        label.style.marginRight = label.style.marginLeft;
-        label.style.marginTop = '200px';
-    }*/
     
     
     //Allow user make document initialisation
+    
     if (window["main"] !== undefined) window["main"]();
 }
 
@@ -80,7 +69,7 @@ function initBackdrop(){
     backDrop.style.backgroundColor = "rgba(0, 0, 0, 0);";
     backDrop.style.visibility = "hidden";
     backDrop.id="backDrop";
-    backDrop.onclick =function (){hideMainMenu(); hideDialogs()};
+    backDrop.onclick =function (){hideNavDrawer(); hideDialogs();};
     document.body.appendChild (backDrop);
    
 }
@@ -102,19 +91,22 @@ function initRippleEffect() {
         buttonsWithRipple[i].ondownaction = new Function(buttonsWithRipple[i].getAttribute ('onmousedown'));
         buttonsWithRipple[i].removeAttribute ('onmousedown');
         
+        var rippleContainer = document.createElement('div');
+        rippleContainer.className = 'ripple-container';
+        buttonsWithRipple[i].appendChild (rippleContainer);
         
         buttonsWithRipple[i].onmousedown = function (){
-            var br = this.getBoundingClientRect();
+            var br = this.lastChild.getBoundingClientRect();
             
             var ripple = document.createElement('div');
             ripple.className = 'ripple';
         
-            ripple.style.left = event.clientX - br.left - 10+'px';
-            ripple.style.top = event.clientY - br.top - 10+'px';
+            ripple.style.left = event.clientX - br.left - 9.5+'px';
+            ripple.style.top = event.clientY - br.top - 9.5+'px';
             
             ripple.className = "ripple ripple-active";
             
-            this.appendChild (ripple);
+            this.lastChild.appendChild (ripple);
             
             setTimeout (function (rip){
                 rip.className = 'ripple';
@@ -136,7 +128,6 @@ function initExpansionPanels (){
         expButton.innerHTML = "<i class='material-icons' style='color:#939393;'>keyboard_arrow_down</i>";
         
         expButton.onclick = function () {
-            //alert (this.parentNode.scrollHeight);
             if (this.parentNode.expanded){
                 this.parentNode.style.height = "48px";
                 this.innerHTML = "<i class='material-icons' style='color:#939393;'>keyboard_arrow_down</i>";
@@ -147,7 +138,7 @@ function initExpansionPanels (){
             }
             this.parentNode.expanded = !this.parentNode.expanded;
             
-        } 
+        };
         
         expPanels[i].appendChild (expButton);
         
@@ -156,10 +147,10 @@ function initExpansionPanels (){
     }
 }
 
-function initMainMenu(){
-    var mainMenu = document.getElementsByClassName('main-menu')[0];
-    if (mainMenu !== undefined){
-        mainMenu.style.left = '-300px';
+function initNavDrawer(){
+    var navDrawer = document.getElementsByClassName('nav-drawer')[0];
+    if (navDrawer !== undefined){
+        navDrawer.style.left = '-300px';
     }
 }
 
@@ -170,12 +161,13 @@ function initDialogs(){
         dialogs[i].style.opacity = '0';
         
         dialogs[i].style.left = 'calc(50% - '+(parseInt(getComputedStyle(dialogs[i]).width)/2)+'px)';
-        dialogs[i].style.top = 'calc(50% - '+(parseInt(getComputedStyle(dialogs[i]).height)/2)+'px)';
+        dialogs[i].style.top = 'calc(50% - '+(parseInt(getComputedStyle(dialogs[i]).height)/2+32)+'px)';
     }
 }
 
 function initSliders(){
     var sliders = document.getElementsByClassName('slider');
+    
     for (var i = 0; i < sliders.length; i++){
         var sliderInput = document.createElement('input');
         sliderInput.type = "range";
@@ -204,16 +196,18 @@ function initSliders(){
         
         var sliderValuer = document.createElement('div');
         sliderValuer.className = 'blob';
-        sliderValuer.style.left = ((parseInt(getComputedStyle(sliderInput).width)-14)*(parseInt(sliderInput.value)/(parseInt(sliderInput.max)-parseInt(sliderInput.min)))-1)+'px';
-        sliderValuer.style.top = '-27px';
+        sliderValuer.style.left = ((parseInt(getComputedStyle(sliderInput).width)-14)*(parseInt(sliderInput.value)/(parseInt(sliderInput.max)-parseInt(sliderInput.min)))-4)+'px';
+        sliderValuer.style.top = '-28px';
         sliderValuer.style.visibility = 'hidden';
         sliderValuer.style.opacity = '0';
         
         var sliderValuerText = document.createElement('p');
-        sliderValuerText.innerHTML = 'a';
+        sliderValuerText.innerHTML = sliderInput.getAttribute('value');
         sliderValuer.appendChild(sliderValuerText);
         
         sliders[i].appendChild(sliderValuer);
+        
+        sliders[i].childNodes[2].childNodes[0].style.left = 'calc(50% - ' + (parseInt(getComputedStyle(sliders[i].childNodes[2].childNodes[0]).width)/2+1)+'px)';
         
         /* Adding interaction for slider helper */
         sliders[i].onmousedown = function (){
@@ -226,10 +220,10 @@ function initSliders(){
                 var sliderValuer = this.childNodes[2];
                 
                 sliderValuer.childNodes[0].innerHTML = sliderInput.value;
-                sliderValuer.childNodes[0].style.left = 'calc(50% - ' + (parseInt(getComputedStyle(sliderValuer.childNodes[0]).width)/2)+'px)';
+                sliderValuer.childNodes[0].style.left = 'calc(50% - ' + ((parseInt(getComputedStyle(sliderValuer.childNodes[0]).width)/2)+1)+'px)';
                 
                 sliderHelper.style.width = ((parseInt(getComputedStyle(sliderInput).width)-14)*(parseInt(sliderInput.value)/(parseInt(sliderInput.max)-parseInt(sliderInput.min)))+1)+'px';
-                sliderValuer.style.left = ((parseInt(getComputedStyle(sliderInput).width)-14)*(parseInt(sliderInput.value)/(parseInt(sliderInput.max)-parseInt(sliderInput.min)))-1)+'px';
+                sliderValuer.style.left = ((parseInt(getComputedStyle(sliderInput).width)-14)*(parseInt(sliderInput.value)/(parseInt(sliderInput.max)-parseInt(sliderInput.min)))-4)+'px';
             };
             
             this.onmouseup = function () {
@@ -241,7 +235,53 @@ function initSliders(){
         };
         
     }
+}
+
+
+function initTabs(){
+    var tabs = document.getElementsByClassName('tab');
+    var tabsContainer = tabs[0].parentNode;
     
+    for (var i = 0; i < tabs.length; i++){
+        tabs[i].style.width = 'calc(' + (100/tabs.length)+"% + 2px)";
+        
+        var tabLabel = document.createElement ("p");
+        tabLabel.innerHTML = tabs[i].getAttribute("label");
+        tabs[i].removeAttribute ("label");
+        tabs[i].appendChild (tabLabel);
+        if (tabs[i].childNodes[0]=="[object HTMLDivElement]"){
+            tabs[i].childNodes[1].style.left = "calc(50% - "+(parseInt(getComputedStyle(tabs[i].childNodes[1]).width)/2)+"px)";
+        }
+        else {
+            tabs[i].childNodes[0].style.left = "calc(50% - "+(parseInt(getComputedStyle(tabs[0].childNodes[1]).width)/2)+"px)";
+        }
+        
+        
+        tabs[i].number = i;
+        
+        tabs[i].onclick = function (){
+            setActiveTab(this.number);
+        };
+    }
+    
+    var tabsHelper = document.createElement('div');
+    tabsHelper.className = "tabs-helper";
+        
+    tabsContainer.appendChild(tabsHelper);
+    setActiveTab(0);
+}
+
+
+function fixFab(){
+    var FAB = document.getElementsByClassName('FloatingActionButton')[0];
+    var toolbar = document.getElementsByClassName("toolbar")[0];
+    
+    if (toolbar.className === "toolbar with-tabs"){
+        FAB.style.bottom="56px";
+    }
+    else {
+        FAB.style.bottom="30px";
+    }
 }
 
 /**
@@ -251,7 +291,6 @@ function initSliders(){
  * @param {function[]} functions Names of functions, which calling on clicking on context menus's items 
  */
 function createContextMenu (element, items, functions){
-    //alert (typeof functions[0]);
     element.oncontextmenu = function (){
         //if (document.getElementById('contextMenu') !== null) this.removeChild (document.getElementById('contextMenu'));
         if (document.getElementsByClassName('contextmenu')[0] !== undefined){
@@ -477,7 +516,6 @@ function setAccentColor (name){
 
 //This function is just an animation test, don't use it in real projects
 function hideFAB (elem){
-    //alert(elem.id);
     var elemStyle = elem.style;
     elemStyle.setProperty ("transform", "scale(0.1)");
     elemStyle.setProperty ("visibility", "hidden");
@@ -488,11 +526,10 @@ function hideFAB (elem){
 //Unstable
 function transformFab (width, height){
     var FAB = document.getElementById("FAB");
-    //alert ("THIS IS FAB!!!! "+FAB+ " "+ "calc(50% + "+parseInt(height/2)+"px)");
     
     document.getElementById("backDrop").style.visibility = "visible";
     document.getElementById("backDrop").style.backgroundColor = "rgba(0, 0, 0, 0.4)";
-    //alert ("this");
+
     FAB.className ="FloatingActionButton";
     FAB.style.bottom = "calc(50% - "+parseInt(height/2)+"px)";
     FAB.style.right = "calc(50% - "+parseInt(width/2)+"px)";
@@ -522,21 +559,21 @@ function showSnackbar (text, duration){
     }, duration, snackbar);
 }
 
-function showMainMenu(){
+function showNavDrawer(){
     showBackdrop();
     
-    var mainMenu = document.getElementsByClassName('main-menu')[0];
-    if (mainMenu !== undefined){
-        mainMenu.style.left = '0px';
+    var navDrawer = document.getElementsByClassName('nav-drawer')[0];
+    if (navDrawer !== undefined){
+        navDrawer.style.left = '0px';
     }
 }
 
-function hideMainMenu(){
+function hideNavDrawer(){
     hideBackdrop();
     
-    var mainMenu = document.getElementsByClassName('main-menu')[0];
-    if (mainMenu !== undefined){
-        mainMenu.style.left = '-300px';
+    var navDrawer = document.getElementsByClassName('nav-drawer')[0];
+    if (navDrawer !== undefined){
+        navDrawer.style.left = '-300px';
     }
 }
 
@@ -565,6 +602,17 @@ function hideDialogs (){
         dialogs[i].style.visibility = 'hidden';
         
     }
+}
+
+function setActiveTab (num){
+    var tabContainer = document.getElementsByClassName("tabs-container")[0];
+    var tabHelper = tabContainer.lastChild;
+    var tabs = document.getElementsByClassName("tab");
+    
+    tabHelper.style.width = (parseInt(getComputedStyle(tabs[num]).width)-3)+'px'; 
+    tabHelper.style.left = tabs[num].offsetLeft+'px';
+    
+    
 }
 
 window.onload = init;

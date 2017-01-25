@@ -90,7 +90,7 @@ body{
 .flatbutton:hover{
     background-color: #DDDDDD;
 }
-.flatbutton>.ripple{
+.flatbutton>.ripple-container>.ripple{
     background-color: #CCCCCC;
 }
 .flatbutton:not(.ripple-effect):active{
@@ -117,7 +117,15 @@ body{
     margin-bottom: 8px;
 }
 
-
+.ripple-container{
+    border-radius: 2px;
+    position: absolute;
+    width:100%;
+    height:100%;
+    top: 0px;
+    left: 0px;
+    -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
+}
 
 .ripple{
     border-radius: 100%;
@@ -259,7 +267,7 @@ body{
     background-color: #434343;
 }
 
-@-webkit-keyframes ripple-checkbox{
+@keyframes ripple-checkbox{
     0%{
         border-radius:100%;
         transform: scale(0.1);
@@ -390,6 +398,7 @@ body{
     transition: box-shadow 0.2s ease-in-out 0s, transform 0.5s ease-in-out 0s, visibility 0s ease-in-out 0.5s, bottom 0.5s linear 0s, right 0.5s linear 0s, background-color 0.2s linear 0s;
     padding: 16px;
     z-index: 999;
+    right:30px;
 }
 
 .FloatingActionButton:hover{
@@ -400,14 +409,16 @@ body{
     box-shadow: rgb(130, 130, 130) 3px 5px 5px;
 }
 
-.FloatingActionButton>.ripple{
+.FloatingActionButton>.ripple-container>.ripple{
     background-color: var(--accent-ripple-color);
 }
 
 .FloatingActionButton:not(.ripple-effect):active{
     background-color: var(--accent-ripple-color);
 }
-
+.FloatingActionButton>.ripple-container{
+    border-radius: 36px;
+}
 
 
 
@@ -427,10 +438,11 @@ input[type=range]::-webkit-slider-thumb{
     height: 14px;
     top:-5px;
     position: relative;
+	top:-5.5px;
     background-color: var(--primary-color);
     border-radius: 20px;
     box-shadow: 0px 1px 3px rgb(160, 160, 160); 
-
+    transition: background-color 0.2s linear 0s;
 }
 
 input[type=range]::-webkit-slider-thumb:active{
@@ -453,15 +465,16 @@ input[type=range]::-webkit-slider-runnable-track {
 .slider-helper{
     background-color: var(--primary-color);
     position: absolute;
-    top: 11.3px;
+    top: 11.0px;
     left:2px;
-    height: 3px;
+    height: 3.4px;
 }
 
+/* Element< that shows the value of the slider */
 .blob{
     position: absolute; 
-    width:20px;
-    height: 20px;
+    width:26px;
+    height: 26px;
     border-radius: 20px;
     background-color: var(--primary-color);
     z-index: 998;
@@ -472,11 +485,11 @@ input[type=range]::-webkit-slider-runnable-track {
     position: absolute;
     width: 0;
 	height: 0;
-    top: 12px;
-    left: 0px;
+    top: 21.3px;
+    left: 3px;
 	border-left: 10px solid transparent;
-	border-right: 10.1px solid transparent;
-	border-top: 21px solid;
+	border-right: 10px solid transparent;
+	border-top: 12px solid;
     border-top-color: var(--primary-color);
     border-radius:3px;
     z-index:997;
@@ -484,8 +497,8 @@ input[type=range]::-webkit-slider-runnable-track {
 }
 .blob>p{
     position: absolute;
-    font-size:7pt;
-    top: 3.5px;
+    font-size:8pt;
+    top: 6px;
     color: white;
     margin: 0px;
     z-index: 998;
@@ -507,8 +520,10 @@ input[type=range]::-webkit-slider-runnable-track {
 
 .mtextfield:focus{
     border:none;
-    border-bottom: solid 2px;
-    border-bottom-color: var(--accent-color);
+    border-bottom: solid 1px;
+    border-bottom-color: #C8C8C8;
+    /*border-bottom: solid 2px;
+    border-bottom-color: var(--accent-color);*/ 
 }
 
 .mtextfield::before{
@@ -541,7 +556,24 @@ input[type=range]::-webkit-slider-runnable-track {
     cursor: default;
 }
 
+.mtextfield::after{
+    transition: left 0.2s ease-in-out 0s, width 0.2s ease-in-out 0s;
+    content: '';
+    position: absolute;
+    bottom:-1.8px;
+    height:2px;
+    visibility: hidden;
+    width: 1px;
+    left: 50%;
+    background-color: var(--accent-color);
+}
 
+.mtextfield:focus::after{
+    visibility: visible;
+    left: 0%;
+    width: 100%;
+    background-color: var(--accent-color);
+}
 
 /* Toolbar */
 .toolbar{
@@ -591,7 +623,7 @@ input[type=range]::-webkit-slider-runnable-track {
 }
 
 /* Main menu */
-.main-menu{
+.nav-drawer{
     display: inline-block;
     position: fixed;
     top: 0px;
@@ -602,90 +634,126 @@ input[type=range]::-webkit-slider-runnable-track {
     
     transition: left 0.2s linear 0s;
 }
-.main-menu>img{
+.nav-drawer>img{
     position: relative;
     width: 100%;
 }
-.main-menu>.divider{
-    margin-top: 2px;
-    margin-bottom: 6px;
+.nav-drawer>.divider{
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
-.main-menu>p{
-    color: #757575;
+.nav-drawer>p{
     margin-left: 18px;
+    margin-top: 12px;
+    font-size: 10.5pt;
+    color:#989898;
+    font-family: Roboto-Medium;
 }
 
 
 /* Main menu item */
-.main-menu-item{
+.nav-drawer-item{
     overflow: hidden;
     display: inline-block;
     position: relative;
     width: 100%;
-    height: 56px;
+    height: 48px;
     margin: 0px;
+    margin-top: -4px;
 
 }
-.main-menu-item>p{
+.nav-drawer-item>p{
     position: relative;
     top: 0px;
     margin: 0px;
-    margin-top: 18px;
-    margin-left:16px;
+    margin-top: 15px;
+    margin-left:30px;
     display: inline-block;
     float:left;
+    font-weight: bold;
+    font-size: 11pt;
 }
-.main-menu-item>i{
+.nav-drawer-item>i{
     float: left;
     display: inline-block;
     margin: 0px;
-    margin-top: 16px;
+    margin-top: 12px;
     margin-left: 16px;
-    color: #757575;
+    color: #737373;
 }
-.main-menu-item>.ripple{
+.nav-drawer-item>.ripple-container>.ripple{
     background-color: #CCCCCC;
 }
-.main-menu-item:not(.ripple-effect):active{
+.nav-drawer-item:not(.ripple-effect):active{
     background-color: #CCCCCC;
 }
-.main-menu-item:hover{
+.nav-drawer-item:hover{
     background-color: #DDDDDD;
 }
+.nav-drawer-item.selected{
+    background-color: #DDDDDD;
+}
+.nav-drawer-item.selected>i{
+   color: var(--primary-color);
+}
+.nav-drawer-item.selected>p{
+   color: var(--primary-color);
+}
+
+
 
 
 .tabs-container{
     /*background-color: black;*/
-    position: relative;
+    position: absolute;
     width: calc(100% - 3px);
     height: 48px;
     max-height: 48px;
-    bottom: -41px;
+    bottom: -0px;
     float: bottom;
     display: inline-block;
-    left:5px;
+    left:0px;
     white-space:nowrap;
 
 
-}
-.tabber+label{
-    width:100%;
-    margin:auto;
-    position: relative;
-    width: 100%;
 }
 
 
 .tab{
     white-space:nowrap;
     margin: 0px;
-    height: 46px;
+    height: 48px;
+    top:-0px;
     display: inline-block;
-    background-color: cyan;
-    border:1px black solid;
+    position: relative;
     margin-left: -5px;
+    overflow: hidden;
+}
+.tab>p{
+    font-weight: normal;
+    font-size: 11pt;
+    color: white;
+    position: relative;
+    margin-right:0px;
+    margin-left:0px;
+    display: inherit;
 }
 
+.tabs-helper{
+    height: 0px;
+    border:1px solid;
+    border-color: var(--accent-color);
+    position: absolute;
+    bottom:0px;
+    transition: left 0.2s linear 0s, width 0.2s linear 0s;
+}
+.tab:hover{
+    background-color: var(--hover-color);
+}
+.tab:not(.ripple-effect):active{
+    background-color: var(--ripple-color);
+
+}
 
 /* Menu */
 .menu{
@@ -735,7 +803,7 @@ input[type=range]::-webkit-slider-runnable-track {
     width: 100%;
 }
 
-@-webkit-keyframes corner-increasing{
+@keyframes corner-increasing{
     0%{
         transform: scale(0.1);
     }
@@ -931,6 +999,10 @@ br, img{
 @font-face{
     font-family: Roboto;
     src: url(Roboto-Regular.ttf);
+}
+@font-face{
+    font-family: Roboto-Medium;
+    src: url(Roboto-Medium.ttf);
 }
 
 
