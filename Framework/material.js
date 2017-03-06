@@ -38,6 +38,9 @@ function init(){
     document.body.ondragstart = function (event){
         return false;
     };
+    //Initialising tabs
+    initTabs();
+    
     
     //Initialising ripple effect
     initRippleEffect();
@@ -51,10 +54,7 @@ function init(){
     initSliders();
     
     
-    //Initialising tabs
-    initTabs();
     
-    fixFab();
     
     
     
@@ -243,18 +243,19 @@ function initTabs(){
     var tabsContainer = tabs[0].parentNode;
     
     for (var i = 0; i < tabs.length; i++){
-        tabs[i].style.width = 'calc(' + (100/tabs.length)+"% + 2px)";
+        tabs[i].style.width = 'calc(' + (100/tabs.length)+"% + 0px)";
         
         var tabLabel = document.createElement ("p");
         tabLabel.innerHTML = tabs[i].getAttribute("label");
         tabs[i].removeAttribute ("label");
         tabs[i].appendChild (tabLabel);
+        
         if (tabs[i].childNodes[0]=="[object HTMLDivElement]"){
             tabs[i].childNodes[1].style.left = "calc(50% - "+(parseInt(getComputedStyle(tabs[i].childNodes[1]).width)/2)+"px)";
         }
         else {
-            tabs[i].childNodes[0].style.left = "calc(50% - "+(parseInt(getComputedStyle(tabs[0].childNodes[1]).width)/2)+"px)";
-        }
+            tabs[i].childNodes[0].style.left = "calc(50% - "+(parseInt(getComputedStyle(tabs[i].childNodes[0]).width)/2)+"px)";
+        }   
         
         
         tabs[i].number = i;
@@ -266,27 +267,16 @@ function initTabs(){
     
     var tabsHelper = document.createElement('div');
     tabsHelper.className = "tabs-helper";
-        
+    tabsHelper.id = "tab_helper";        
     tabsContainer.appendChild(tabsHelper);
     setActiveTab(0);
 }
 
 
-function fixFab(){
-    var FAB = document.getElementsByClassName('FloatingActionButton')[0];
-    var toolbar = document.getElementsByClassName("toolbar")[0];
-    
-    if (toolbar.className === "toolbar with-tabs"){
-        FAB.style.bottom="56px";
-    }
-    else {
-        FAB.style.bottom="30px";
-    }
-}
 
 /**
  * 
- * @param {object} element Dom element which you are creating context menu for
+ * @param {object} element Dom element for which you are creating context menu
  * @param {string[]} items Names of context menu's items
  * @param {function[]} functions Names of functions, which calling on clicking on context menus's items 
  */
@@ -609,9 +599,16 @@ function setActiveTab (num){
     var tabHelper = tabContainer.lastChild;
     var tabs = document.getElementsByClassName("tab");
     
-    tabHelper.style.width = (parseInt(getComputedStyle(tabs[num]).width)-3)+'px'; 
-    tabHelper.style.left = tabs[num].offsetLeft+'px';
+    tabHelper.style.width = (parseInt(tabs[num].clientWidth)/ parseInt(tabContainer.clientWidth)*100)+'%';
     
+    //calculating x coordinate
+    var left = 0;
+    for(var i = 0; i < num; i++){
+        left += parseInt(tabs[i].clientWidth);
+    }
+
+
+    tabHelper.style.left = (left / parseInt(tabContainer.clientWidth)*100)+'%';
     
 }
 
