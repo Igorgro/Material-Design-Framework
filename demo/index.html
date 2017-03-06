@@ -1,0 +1,139 @@
+<html>
+    <head>
+        <title>Material design demo</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="material.css">
+        <script src="material.js"></script>
+        <script src="actions.js"></script>
+    </head>
+    <body style="position: absolute; background-color: #EEEEEE; width:100%; height: 200%; display: inline-block" >
+        <div class="toolbar with-tabs" id="toolbar">
+            <div class="toolbar-button" onclick="showNavDrawer();"><i class="material-icons" style="z-index: 40;">menu</i></div>
+            <h3>Material design</h3>
+            <div class="tabs-container" id="myid">
+                <div class="tab ripple-effect" label="Tab 1"></div>
+                <div class="tab ripple-effect" label="Tab 2" id="tab"></div>
+                <div class="tab" label="Tab 3"></div>
+                <div class="tab" label="Tab 4"></div>
+                <div class="tab" label="Tab 5"></div>
+                <div class="tab" label="Tab 6"></div>
+            </div>
+        </div>
+        
+        <div class="mcard" style="position: absolute; width:300px;top:200px; left:0px;" id="card">
+            <image src="https://s.androidinsider.ru/2014/12/1_Material_Design.@750.jpg" style="max-width: 100%; position: relative;">
+            <h2>Beautiful forest</h2>
+            <p>Would you like to visit this beautiful forest in 12 September 2017?</p>
+            <div class="buttons-container">
+                <div class="flatbutton"><p>CANCEL</p></div>
+                <div class="flatbutton"><p>OK</p></div>
+            </div>
+        </div>
+        
+        <div class="slider" value="50" min="0" max="100" step="1" style="width:200px; position: absolute; top:580px; left:40px;"></div>
+        
+        <div class="button ripple-effect" style="top:140px;" id="pressButton" onclick="showSnackbar ('This is snackbar', SNACKBAR_SHORT_DELAY)">
+            <p>PRESS</p>
+        </div>
+        
+        <div class="button" style="position: relative; top:140px;left:10px;" onclick="hideFAB (document.getElementById('FAB'))">
+            <p>Hide FAB</p>
+        </div>
+        
+        <div class="flatbutton ripple-effect" style="position: relative; top:140px;left:20px;" onclick="showDialog(document.getElementById('dialog1'))">
+            <p>Flat button</p>
+        </div>
+        
+        <div class="button ripple-effect" style="top:480px; left:50px;" onclick="calcWidth();">
+            <p>WIDTH</p>
+        </div>
+        
+        
+        
+        <div class="mcard" style="position: absolute; top:140px; left: 340px; margin: 4px; width: 300px; padding: 16px;">
+            
+            <input class="checkbox" type="checkbox" id="raz" ><label for="raz">Check me</label><br><br>
+            <input class="checkbox" type="checkbox" id="raz2" ><label for="raz2">Check me</label><br><br>
+            
+            <input class="radio" type="radio" name="raz" id="raz3" value="1" checked="" /><label for="raz3">Switch me1</label><br><br>
+            <input class="radio" type="radio" name="raz" id="raz4" value="2" /><label for="raz4">Switch me2</label><br><br>
+            <input class="switch" type="checkbox"  id="switch1" value="2"/><label for="switch1">Switch me 3</label><br><br>
+            <input class="switch" type="checkbox"  id="switch2" value="2"/><label for="switch2">Switch me 4</label><br><br><br>
+            
+            <div class ="mtextfield" label="Enter your text here"></div>     
+            
+        </div>   
+        
+        <div class="expansion-panel" style="position: absolute; left:700px; top:143px; width: 300px;">
+            <h5>Expansion panel</h5>
+            <p>This is very long and dull text in the expansion panel</p>
+            <div class="divider"></div>
+            <p>Some other text</p>
+        </div>
+        
+        <div class="linear-layout-vert" style="position: absolute; top:200px; left:700px; right:915px; height:100%;">
+            <div class="mcard" style="height:20px;"></div>
+            <div class="mcard" style="height:20px;"></div>
+            <div class="mcard" style="height:20px;"></div>
+            <div class="mcard" style="height:20px;"></div>
+            <div class="mcard" style="height:20px;"></div>
+            <div class="mcard" style="height:20px;"></div>
+            <div class="mcard" style="height:20px;"></div>
+            <div class="mcard" style="height:20px;"></div>
+            <div class="mcard" style="height:20px;"></div>
+        </div>
+        
+        <div class="linear-layout-hor" style="position: absolute; top:143px; left:1010px; right:400px; height:300px;">
+            <div class="mcard" style="width:80px;"></div>
+            <div class="mcard" style="width:80px;"></div>
+            <div class="mcard" style="width:80px;"></div>
+            <div class="mcard" style="width:80px;"></div>
+
+        </div>
+        
+        <div class="nav-drawer">
+            <img src="Material-design.jpg">
+            <p>Lock control</p>
+            <div class="nav-drawer-item ripple-effect">
+                <i class="material-icons">email</i>
+                <p>Mail</p>
+            </div>
+            <div class="nav-drawer-item">
+                <i class="material-icons">send</i>
+                <p>Sent</p>
+            </div>
+            <div class="divider"></div>
+            <p>Subheader</p>
+            <div class="nav-drawer-item selected">
+                <i class="material-icons">create</i>
+                <p>Edit</p>
+            </div>
+            <div class="nav-drawer-item">
+                <i class="material-icons">add</i>
+                <p>Add</p>
+            </div>
+            <div class="divider"></div>
+        </div>
+        
+        <div class="dialog" id="dialog1" style="width:350px; height:300px;">
+            <div class="title">
+                <h3>Login</h3>
+            </div>
+            <br>
+            <div class="mtextfield" label="Username"></div><br><br>
+            <div class="mtextfield" label="Password"></div><br>
+            <form><input class="checkbox" type="checkbox" id="remember"><label for="remember">Remember Me</label></form>
+            
+            <div class="buttons-container">
+                <div class="flatbutton"><p>Login</p></div>
+                <div class="flatbutton" onclick="hideDialogs();"><p>Cancel</p></div>
+            </div>
+        </div>
+        
+        <div class="FloatingActionButton ripple-effect" id="FAB" onclick="">
+            <i class="material-icons" style="z-index: 40;">add</i>
+        </div>
+    </body>
+</html>
