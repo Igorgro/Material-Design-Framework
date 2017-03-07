@@ -17,20 +17,20 @@ body{
     display: inline-block;
     transition: box-shadow 0.2s ease-in-out 0s;
 }
-.mcard>p{
+.mcard > p{
     margin-left: 16px;
     margin-right: 16px;
     margin-top: 12px;
     margin-bottom: 12px;
     font-size: 10pt;
 }
-.mcard>h3,.mcard>h2{
+.mcard > h3, .mcard > h2{
     margin-bottom:0px;
-    margin-top: 22px;
+    margin-top: 18px;
     margin-left:16px;
     margin-right: 16px; 
 }
-.mcard>img{
+.mcard > img{
     position: relative;
     width: 100%;
 }
@@ -62,7 +62,7 @@ body{
     background-color: var(--ripple-color);
 }
 
-.button>p{
+.button > p{
     height: 2px;
     margin: 0px;
     position: inherit;
@@ -83,24 +83,24 @@ body{
     transition: box-shadow 0.3s ease-in-out 0s;
 }
 
-.flatbutton>p{
+.flatbutton > p{
     color:var(--primary-color);
     z-index: 1;
 }
 .flatbutton:hover{
     background-color: #DDDDDD;
 }
-.flatbutton>.ripple-container>.ripple{
+.flatbutton > .ripple-container > .ripple{
     background-color: #CCCCCC;
 }
 .flatbutton:not(.ripple-effect):active{
     background-color: #CCCCCC;
 }
 
-.flatbutton:disabled>p{
+.flatbutton:disabled > p{
     color: #B0B0B0;
 }
-.flatbutton>p{
+.flatbutton > p{
     height: 2px;
     margin: 0px;
     position: inherit;
@@ -112,7 +112,7 @@ body{
     border-top: solid 0.5px #D2D2D2;
     float: bottom;
 }
-.buttons-container>.flatbutton{
+.buttons-container > .flatbutton{
     float: right;
     margin-bottom: 8px;
 }
@@ -408,14 +408,14 @@ body{
     box-shadow: rgb(130, 130, 130) 3px 5px 5px;
 }
 
-.FloatingActionButton>.ripple-container>.ripple{
+.FloatingActionButton > .ripple-container > .ripple{
     background-color: var(--accent-ripple-color);
 }
 
 .FloatingActionButton:not(.ripple-effect):active{
     background-color: var(--accent-ripple-color);
 }
-.FloatingActionButton>.ripple-container{
+.FloatingActionButton > .ripple-container{
     border-radius: 36px;
 }
 
@@ -457,7 +457,7 @@ input[type=range]::-webkit-slider-runnable-track {
 .slider{
     height: 30px;
 }
-.slider>input[type=range]{
+.slider > input[type=range]{
     width: 100%;
 }
 
@@ -494,7 +494,7 @@ input[type=range]::-webkit-slider-runnable-track {
     z-index:997;
     
 }
-.blob>p{
+.blob > p{
     position: absolute;
     font-size:8pt;
     top: 6px;
@@ -604,7 +604,7 @@ input[type=range]::-webkit-slider-runnable-track {
     background-color: var(--primary-color);
     cursor: pointer;
 }
-.toolbar-button>i{
+.toolbar-button > i{
     margin-top: 12px;
     margin-left: 12px;
     cursor: pointer;
@@ -615,7 +615,7 @@ input[type=range]::-webkit-slider-runnable-track {
     height: 112px;
         
 }
-.toolbar>h3{
+.toolbar > h3{
     float: left;
     position: relative;
     top:0px;
@@ -637,15 +637,15 @@ input[type=range]::-webkit-slider-runnable-track {
     
     transition: left 0.2s linear 0s;
 }
-.nav-drawer>img{
+.nav-drawer > img{
     position: relative;
     width: 100%;
 }
-.nav-drawer>.divider{
+.nav-drawer > .divider{
     margin-top: 0px;
     margin-bottom: 0px;
 }
-.nav-drawer>p{
+.nav-drawer > p{
     margin-left: 18px;
     margin-top: 12px;
     font-size: 10.5pt;
@@ -666,7 +666,7 @@ input[type=range]::-webkit-slider-runnable-track {
     transition: background-color 0.2s linear 0s;
 
 }
-.nav-drawer-item>p{
+.nav-drawer-item > p{
     position: relative;
     top: 0px;
     margin: 0px;
@@ -678,7 +678,7 @@ input[type=range]::-webkit-slider-runnable-track {
     font-size: 11pt;
     z-index: 1;
 }
-.nav-drawer-item>i{
+.nav-drawer-item > i{
     float: left;
     display: inline-block;
     margin: 0px;
@@ -687,7 +687,7 @@ input[type=range]::-webkit-slider-runnable-track {
     color: #737373;
     z-index: 1;
 }
-.nav-drawer-item>.ripple-container>.ripple{
+.nav-drawer-item > .ripple-container > .ripple{
     background-color: #CCCCCC;
 }
 .nav-drawer-item:not(.ripple-effect):active{
@@ -699,10 +699,10 @@ input[type=range]::-webkit-slider-runnable-track {
 .nav-drawer-item.selected{
     background-color: #DDDDDD;
 }
-.nav-drawer-item.selected>i{
+.nav-drawer-item.selected > i{
    color: var(--primary-color);
 }
-.nav-drawer-item.selected>p{
+.nav-drawer-item.selected > p{
    color: var(--primary-color);
 }
 
@@ -716,7 +716,7 @@ input[type=range]::-webkit-slider-runnable-track {
     z-index: 1;
     border-radius: 100px;
 }
-.avatar>img{
+.avatar > img{
     width: 100%;
     height: 100%;
 }
@@ -751,7 +751,7 @@ input[type=range]::-webkit-slider-runnable-track {
     overflow: hidden;
     transition: background-color 0.2s linear 0s;
 }
-.tab>p{
+.tab > p{
     font-weight: normal;
     font-size: 11pt;
     color: white;
@@ -863,7 +863,7 @@ input[type=range]::-webkit-slider-runnable-track {
     display: inline-block;
     transition: bottom 0.2s ease-in-out 0s;
 }
-.snackbar>p{
+.snackbar > p{
     margin: 0px;
     margin-top: 14px;
     margin-left: 24px;
@@ -877,7 +877,7 @@ input[type=range]::-webkit-slider-runnable-track {
     position: absolute;
     display: inline-block;
 }
-.linear-layout-hor>*{
+.linear-layout-hor > *{
     position: relative;
     margin-right: 4px;
     height: 100%;
@@ -887,7 +887,7 @@ input[type=range]::-webkit-slider-runnable-track {
     position: absolute;
     display: inline-block;
 }
-.linear-layout-vert>*{
+.linear-layout-vert > *{
     width:100%;
     margin-bottom: 4px;
     position: relative;
@@ -902,17 +902,17 @@ input[type=range]::-webkit-slider-runnable-track {
     display: inline-block;
     transition: height 0.2s ease-in-out 0s;
 }
-.expansion-panel>*:not(.expand-button):not(.divider){
+.expansion-panel > *:not(.expand-button):not(.divider){
     margin-left:24px;
     margin-right: 24px;
     position: relative;
 }
-.expansion-panel>h5{
+.expansion-panel > h5{
     position: relative;
     margin-top: 16px;
     margin-bottom: 16px;
 }
-.expansion-panel>p{
+.expansion-panel > p{
     font-size: 10pt;
 }
 
@@ -942,7 +942,7 @@ input[type=range]::-webkit-slider-runnable-track {
     margin-top: 24px;
     transition: opacity 0.2s linear 0s, visibility 0.2s linear 0s;
 }
-.dialog>.buttons-container{
+.dialog > .buttons-container{
     bottom: -6px;
     left:0px;
     right: 0px;
@@ -961,13 +961,13 @@ input[type=range]::-webkit-slider-runnable-track {
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;
 }
-.title>h2{
+.title > h2{
     margin: 0px;
     margin-left: 18px;
     margin-top:16px;
     color:white;
 }
-.title>h3{
+.title > h3{
     margin: 0px;
     margin-left: 18px;
     margin-top:18px;
@@ -1003,7 +1003,7 @@ p,label, a{
     user-select: none;
 }
 
-h1,h2,h3,h4,h5,h6{
+h1, h2, h3, h4, h5, h6{
     cursor: default;
     z-index: 1;
     font-family: RobotoLight;
